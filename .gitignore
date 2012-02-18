@@ -50,3 +50,5 @@ target
 ehthumbs.db
 Icon?
 Thumbs.db
+
+android/.classpath
