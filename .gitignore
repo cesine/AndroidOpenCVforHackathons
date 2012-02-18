@@ -52,3 +52,4 @@ Icon?
 Thumbs.db
 
 android/.classpath
+android/lint.xml
