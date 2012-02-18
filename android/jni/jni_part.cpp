@@ -31,7 +31,12 @@ void createPreview(Mat mbgra) {
 	int width = mbgra.size[1];
 	int height = mbgra.size[0];
 
+
+	findAllRectangles(mbgra);
+	return;
+	
 	vector<Point> contour = findCircle(mbgra);
+	
 	if (contour.size() == 0)
 		return;
 
