@@ -24,5 +24,19 @@
     created and shared by Google and used according to terms described in
     the Apache 2.0 License.</string>
     <string name="preference_misc">More Information</string>
+    
+    
+    <!-- imported preferences -->
+    <string name="strIdPrefs">app_settings</string>
+    <string name="strIdPrefsSubTitle">Internal Settings</string>
+    
+    <string name="prefCatServer">Server Settings</string>
+    <string name="prefServerBaseURL">Server base URL</string>
+    <string name="strServerBaseURL">NONE</string>
+    
+    <string name="prefRandom">Other things</string>
+    <string name="prefAbout">About this program</string>
+    <string name="strAbout">ABOUTthisProgram</string>
+    
 
 </resources>
