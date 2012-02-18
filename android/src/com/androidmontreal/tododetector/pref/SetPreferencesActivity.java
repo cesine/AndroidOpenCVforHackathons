@@ -1,6 +1,6 @@
-package ca.ilanguage.rhok.imageupload.pref;
+package com.androidmontreal.tododetector.pref;
 
-import ca.ilanguage.rhok.imageupload.R;
+import com.androidmontreal.tododetector.R;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;

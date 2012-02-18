@@ -1,4 +1,4 @@
-package ca.ilanguage.rhok.imageupload.service;
+package com.androidmontreal.tododetector.service;
 
 import android.app.Activity;
 

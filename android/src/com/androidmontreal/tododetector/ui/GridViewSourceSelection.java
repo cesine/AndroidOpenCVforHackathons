@@ -1,7 +1,10 @@
-package ca.ilanguage.rhok.imageupload.ui;
+package com.androidmontreal.tododetector.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.androidmontreal.tododetector.db.ImageUploadHistoryDatabase.ImageUploadHistory;
+import com.androidmontreal.tododetector.pref.PreferenceConstants;
 
 import android.app.Activity;
 import android.database.Cursor;
@@ -12,9 +15,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
-import ca.ilanguage.rhok.imageupload.R;
-import ca.ilanguage.rhok.imageupload.db.ImageUploadHistoryDatabase.ImageUploadHistory;
-import ca.ilanguage.rhok.imageupload.pref.PreferenceConstants;
+import com.androidmontreal.tododetector.R;
 
 public class GridViewSourceSelection extends Activity {
 

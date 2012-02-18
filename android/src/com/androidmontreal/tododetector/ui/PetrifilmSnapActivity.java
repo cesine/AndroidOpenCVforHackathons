@@ -1,11 +1,11 @@
-package ca.ilanguage.rhok.imageupload.ui;
+package com.androidmontreal.tododetector.ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import ca.ilanguage.rhok.imageupload.R;
+import com.androidmontreal.tododetector.R;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;

@@ -11,7 +11,7 @@
 
 #include "imagefuncs.h"
 
-#define APPNAME "ca.ilanguage.rhok.imageupload"
+#define APPNAME "com.androidmontreal.tododetector"
 
 #define OUTPUT_PIPELINE 1
 
@@ -60,7 +60,7 @@ Mat process(Mat input, int& colonies) {
 }
 
 extern "C" {
-JNIEXPORT void JNICALL Java_ca_ilanguage_rhok_imageupload_ui_PetrifilmSnapPreviewView_Process(
+JNIEXPORT void JNICALL Java_com_androidmontreal_tododetector_ui_PetrifilmSnapPreviewView_Process(
 		JNIEnv* env, jobject thiz, jint width, jint height, jbyteArray yuv,
 		jintArray bgra) {
 	// Get input and output arrays

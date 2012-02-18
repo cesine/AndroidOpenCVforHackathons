@@ -1,4 +1,4 @@
-package ca.ilanguage.rhok.imageupload.service;
+package com.androidmontreal.tododetector.service;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,10 +15,11 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 
+import com.androidmontreal.tododetector.pref.PreferenceConstants;
 
 
-import ca.ilanguage.rhok.imageupload.R;
-import ca.ilanguage.rhok.imageupload.pref.PreferenceConstants;
+
+import com.androidmontreal.tododetector.R;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
