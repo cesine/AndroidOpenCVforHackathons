@@ -39,26 +39,12 @@
             android:name=".ui.MainPortal"
             android:label="@string/app_name" >
 
-            <!--
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            -->
         </activity>
-        <activity
-            android:name=".ui.SampleListActivity"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.GridViewSourceSelection"
-            android:label="@string/app_name" >
-        </activity>
+       
         <activity
             android:name=".ui.ServerSync"
             android:label="@string/app_name" >
@@ -67,10 +53,7 @@
             android:name=".pref.SetPreferencesActivity"
             android:label="@string/app_name" >
         </activity>
-        <activity
-            android:name=".service.TakePicture"
-            android:label="@string/app_name" >
-        </activity>
+        
         <activity
             android:name=".ui.PetrifilmSnapActivity"
             android:configChanges="keyboardHidden|orientation"

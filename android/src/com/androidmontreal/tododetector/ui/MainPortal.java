@@ -2,12 +2,12 @@ package com.androidmontreal.tododetector.ui;
 
 import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 import com.androidmontreal.tododetector.db.ImageUploadHistoryDatabase.ImageUploadHistory;
 import com.androidmontreal.tododetector.pref.PreferenceConstants;
 import com.androidmontreal.tododetector.pref.SetPreferencesActivity;
 import com.androidmontreal.tododetector.service.ImageUploadService;
-import com.androidmontreal.tododetector.service.TakePicture;
 
 import com.androidmontreal.tododetector.R;
 import android.app.Activity;
@@ -40,7 +40,8 @@ public class MainPortal extends Activity {
 	private static final int SWITCH_LANGUAGE = 2;
 	private Menu mMenu;
 	private Uri mUri;
-
+	static int PETRI_IMAGE_REQUEST = 1;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -50,7 +51,7 @@ public class MainPortal extends Activity {
 				PreferenceConstants.PREFERENCE_NAME, MODE_PRIVATE);
 		mOutputDir = prefs.getString(
 				PreferenceConstants.OUTPUT_IMAGE_DIRECTORY,
-				"/sdcard/BacteriaCounting/watersamples/");
+				"/sdcard/ToDos/");
 		mSampleId = prefs.getString(
 				PreferenceConstants.PREFERENCE_WATER_SAMPLE_ID, "unkown");
 		mExperimenterCode = prefs.getString(
@@ -59,39 +60,6 @@ public class MainPortal extends Activity {
 		saveStateToPreferences();
 	}
 
-	/**
-	 * Creates a new database entry for the image and launches the take picture
-	 * activity with this info
-	 * 
-	 * @param v
-	 */
-	public void onWaterSourceClick(View v) {
-		Intent intent = new Intent(this, TakePicture.class);
-		intent.putExtra(EXTRA_WATER_SOURCE_CODE, mImageFileName);
-
-		Uri uri = getContentResolver().insert(ImageUploadHistory.CONTENT_URI,
-				null);
-		if (uri != null){
-			mUri = uri;
-		}
-		mSampleCodeCount = uri.getLastPathSegment();
-
-		// If we were unable to create a new db entry, then just finish
-		// this activity. A RESULT_CANCELED will be sent back to the
-		// original activity if they requested a result.
-		if (uri == null || mOutputDir.length() < 3) {
-			Log.e(TAG, "Failed to insert new image entry into "
-					+ getIntent().getData());
-		} else {
-			intent.setData(uri);
-			new File(mOutputDir).mkdirs();
-			mImageFileName = mOutputDir+System.currentTimeMillis()+mExperimenterCode+mSampleCodeCount+"_source.jpg";
-			intent.putExtra(PreferenceConstants.EXTRA_IMAGEFILE_FULL_PATH, mImageFileName);
-			startActivityForResult(intent, WATER_SOURCE);
-
-		}
-
-	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		SharedPreferences prefens = getSharedPreferences(
@@ -116,13 +84,18 @@ public class MainPortal extends Activity {
 		}
 	}
 
-	public void onWaterResultsClick(View v) {
-//                Intent intent = new Intent(this, GridViewSourceSelection.class);
-//                intent.putExtra(EXTRA_WATER_SOURCE_CODE, mImageFileName );
-//                startActivity(intent);
+	public void onTodoDetectClick(View v) {
 		//Use this button temporarily to test the OpenCV activity on your machine:
+//		Intent intent = new Intent(this, PetrifilmSnapActivity.class);
+//		startActivity(intent);
+		
 		Intent intent = new Intent(this, PetrifilmSnapActivity.class);
-		startActivity(intent);
+		String guid=UUID.randomUUID().toString();
+		File file = new File(getExternalFilesDir(null), "petri_" + guid + ".jpg");
+		intent.putExtra("filepath", file.getAbsolutePath());
+		intent.putExtra("guid", guid);
+
+		startActivityForResult(intent, PETRI_IMAGE_REQUEST);
 	}
 
 	public void onSyncServerClick(View v) {
@@ -211,7 +184,7 @@ public class MainPortal extends Activity {
 
 			Intent browserIntent = new Intent(
 					Intent.ACTION_VIEW,
-					Uri.parse("https://github.com/AndroidImageProcessing/AndroidBacteriaImageProcessing/issues"));
+					Uri.parse("https://github.com/borisdb/TodoDetector/issues"));
 			startActivity(browserIntent);
 			return true;
 		default:
