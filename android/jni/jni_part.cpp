@@ -80,7 +80,7 @@ JNIEXPORT void JNICALL Java_com_androidmontreal_tododetector_ui_PetrifilmSnapPre
 	env->ReleaseByteArrayElements(yuv, _yuv, 0);
 }
 
-JNIEXPORT void JNICALL Java_ca_ilanguage_rhok_imageupload_PetrifilmImageProcessor_process(
+JNIEXPORT void JNICALL Java_com_androidmontreal_tododetector_PetrifilmImageProcessor_process(
 		JNIEnv* env, jobject thiz, jbyteArray jpeg, jobject results) {
 	jbyte* _jpeg = env->GetByteArrayElements(jpeg, 0);
 
