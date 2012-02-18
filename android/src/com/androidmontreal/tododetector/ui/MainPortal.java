@@ -1,14 +1,15 @@
-package ca.ilanguage.rhok.imageupload.ui;
+package com.androidmontreal.tododetector.ui;
 
 import java.io.File;
 import java.util.List;
 
-import ca.ilanguage.rhok.imageupload.R;
-import ca.ilanguage.rhok.imageupload.db.ImageUploadHistoryDatabase.ImageUploadHistory;
-import ca.ilanguage.rhok.imageupload.pref.PreferenceConstants;
-import ca.ilanguage.rhok.imageupload.pref.SetPreferencesActivity;
-import ca.ilanguage.rhok.imageupload.service.ImageUploadService;
-import ca.ilanguage.rhok.imageupload.service.TakePicture;
+import com.androidmontreal.tododetector.db.ImageUploadHistoryDatabase.ImageUploadHistory;
+import com.androidmontreal.tododetector.pref.PreferenceConstants;
+import com.androidmontreal.tododetector.pref.SetPreferencesActivity;
+import com.androidmontreal.tododetector.service.ImageUploadService;
+import com.androidmontreal.tododetector.service.TakePicture;
+
+import com.androidmontreal.tododetector.R;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;

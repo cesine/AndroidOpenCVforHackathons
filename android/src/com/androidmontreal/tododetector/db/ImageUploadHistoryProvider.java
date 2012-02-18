@@ -1,8 +1,9 @@
-package ca.ilanguage.rhok.imageupload.db;
+package com.androidmontreal.tododetector.db;
 
 import java.util.HashMap;
 
-import ca.ilanguage.rhok.imageupload.db.ImageUploadHistoryDatabase.ImageUploadHistory;
+import com.androidmontreal.tododetector.db.ImageUploadHistoryDatabase.ImageUploadHistory;
+
 
 import android.content.ContentProvider;
 import android.content.ContentUris;

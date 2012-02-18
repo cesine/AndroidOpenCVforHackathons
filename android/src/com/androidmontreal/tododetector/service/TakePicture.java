@@ -1,4 +1,4 @@
-package ca.ilanguage.rhok.imageupload.service;
+package com.androidmontreal.tododetector.service;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -6,10 +6,11 @@ import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
 import java.util.Date;
 
-import ca.ilanguage.rhok.imageupload.R;
-import ca.ilanguage.rhok.imageupload.db.ImageUploadHistoryDatabase.ImageUploadHistory;
-import ca.ilanguage.rhok.imageupload.pref.PreferenceConstants;
-import ca.ilanguage.rhok.imageupload.ui.MainPortal;
+import com.androidmontreal.tododetector.db.ImageUploadHistoryDatabase.ImageUploadHistory;
+import com.androidmontreal.tododetector.pref.PreferenceConstants;
+import com.androidmontreal.tododetector.ui.MainPortal;
+
+import com.androidmontreal.tododetector.R;
 
 import android.app.Activity;
 import android.content.ContentResolver;

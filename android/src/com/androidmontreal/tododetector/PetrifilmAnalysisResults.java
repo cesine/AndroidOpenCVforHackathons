@@ -1,4 +1,4 @@
-package ca.ilanguage.rhok.imageupload;
+package com.androidmontreal.tododetector;
 
 public class PetrifilmAnalysisResults {
 	public byte[] jpeg = new byte[0];

@@ -1,4 +1,4 @@
-package ca.ilanguage.rhok.imageupload.pref;
+package com.androidmontreal.tododetector.pref;
 /*
  * Copyright (C) 2010 The Android Open Source Project
  *

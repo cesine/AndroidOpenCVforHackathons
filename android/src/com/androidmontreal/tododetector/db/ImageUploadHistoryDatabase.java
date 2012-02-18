@@ -1,4 +1,4 @@
-package ca.ilanguage.rhok.imageupload.db;
+package com.androidmontreal.tododetector.db;
 
 import java.util.regex.Pattern;
 
@@ -34,7 +34,7 @@ public class ImageUploadHistoryDatabase {
 	    
     }
     
-    public static final String AUTHORITY = "ca.ilanguage.rhok.imageupload.db.ImageUploadHistory";
+    public static final String AUTHORITY = "com.androidmontreal.tododetector.db.ImageUploadHistory";
     private static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
     public static final String IMAGE_UPLOAD_HISTORY_TABLE_NAME = "imageuploadhistory";
     

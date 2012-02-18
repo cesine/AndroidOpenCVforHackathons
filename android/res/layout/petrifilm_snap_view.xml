@@ -5,7 +5,7 @@
     android:layout_height="match_parent" >
 
     <view
-        class="ca.ilanguage.rhok.imageupload.ui.PetrifilmSnapPreviewView" 
+        class="com.androidmontreal.tododetector.ui.PetrifilmSnapPreviewView" 
         android:id="@+id/preview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

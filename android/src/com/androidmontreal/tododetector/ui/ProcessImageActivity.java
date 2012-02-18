@@ -1,11 +1,12 @@
-package ca.ilanguage.rhok.imageupload.ui;
+package com.androidmontreal.tododetector.ui;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import ca.ilanguage.rhok.imageupload.PetrifilmAnalysisResults;
-import ca.ilanguage.rhok.imageupload.PetrifilmImageProcessor;
-import ca.ilanguage.rhok.imageupload.R;
+import com.androidmontreal.tododetector.PetrifilmAnalysisResults;
+import com.androidmontreal.tododetector.PetrifilmImageProcessor;
+
+import com.androidmontreal.tododetector.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

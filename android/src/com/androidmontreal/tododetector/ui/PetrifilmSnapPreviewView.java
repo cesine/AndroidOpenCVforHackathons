@@ -1,4 +1,4 @@
-package ca.ilanguage.rhok.imageupload.ui;
+package com.androidmontreal.tododetector.ui;
 
 import android.content.Context;
 import android.graphics.Bitmap;
