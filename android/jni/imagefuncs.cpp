@@ -25,6 +25,10 @@ double calcCircularity(vector<Point> contour) {
 	return circularity;
 }
 
+/* Write image to the SDCARD */
+//imwrite("/sdcard/Todos/afilename.png", mbgra);
+
+
 /* Finds all the rectangles in a region */
 vector<vector<Point> > findAllRectangles(Mat& mbgra) {
 	int width = mbgra.size[1];
@@ -78,7 +82,7 @@ vector<vector<Point> > findAllRectangles(Mat& mbgra) {
 	//LOGI("Potential Checkboxes: %d", checkboxes.size());
 	
 	
-	
+	checkboxes = filterSquareByArea(checkboxes);
 	
 	
     drawContours(mbgra, checkboxes, -1, Scalar(0, 255, 0, 255), 2);
@@ -86,29 +90,61 @@ vector<vector<Point> > findAllRectangles(Mat& mbgra) {
 	
 	mbgra.setTo(Scalar(0, 0, 255, 255), thresh);//thresh is the mask to draw
 	
+	
+	findDivisionBasedOnWhiteSpace(checkboxes, mbgra);
+	
 	return checkboxes;
 }
 
+
 /*
+Find the vertical divide line where most of the rectangles are on one side of the image.
+- get a histogram of the image
+- find the spike where the checkbox are, followed by a valley where there is white space, 
+- consider contours with  x's less than the white space to be checkboxes
+http://laconsigna.wordpress.com/2011/04/29/1d-histogram-on-opencv/
+*/
+vector<vector<Point> > findDivisionBasedOnWhiteSpace(vector<vector<Point> > potentialCheckboxes, Mat& mbgra)
+{
+
+	return potentialCheckboxes;
+}
+
+
+
+ //TODO : don't use the biggest area as reference to avoid bug if a big square exist
+ //return the squares with the biggest area 
  vector<vector<Point> > filterSquareByArea(vector<vector<Point> > checkboxes)
  {
- 	for (int i = 0; i < checkboxes.size(); i++) {
- 	vector<Point> checkbox;
  	vector<double> checkBoxAreas;
+ 	
+ 	//get checkboxes areas
+ 	for (int i = 0; i < checkboxes.size(); i++) {
+ 		vector<Point> checkbox;
  	    checkbox = checkboxes[i]; 
  	    double potentialCheckboxArea = contourArea(checkbox);
- 	    checkBoxAreas.push_back();
+ 	    checkBoxAreas.push_back(potentialCheckboxArea);
  	}
  	
- 	for (int i = 0; i < checkBoxAreas.size(); i++) {
- 		
- 		
+ 	sort(checkBoxAreas.begin() , checkBoxAreas.end());
+ 	double bigestArea = checkBoxAreas.back();
+ 	
+ 	const double miniumAreaPercentage = 0.3;
+ 	double minimumAreaRequired  = bigestArea * miniumAreaPercentage;
+ 	
+ 	vector<vector<Point> > selectedCheckboxes;
+ 	//get bigest checkboxes
+ 	for (int i = 0; i < checkboxes.size(); i++) {
+ 		vector<Point> checkbox;
+ 	    checkbox = checkboxes[i];
+ 	     
+ 	    double checkboxArea = contourArea(checkbox);
+ 	    if(checkboxArea > minimumAreaRequired){
+ 	    	selectedCheckboxes.push_back(checkbox);
+ 	    }
  	}
- 	
- 	
+ 	return selectedCheckboxes;
  }
- 
-  */	
  
 
 /* Finds the circle in a region */

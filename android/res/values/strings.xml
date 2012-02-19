@@ -32,7 +32,10 @@
     
     <string name="prefCatServer">Server Settings</string>
     <string name="prefServerBaseURL">Server base URL</string>
-    <string name="strServerBaseURL">NONE</string>
+    <string name="strServerBaseURL">http://10.40.20.133:8080/todo</string>
+    
+    <string name="actOneListSubtitle">Displaying: </string>
+    <string name="actListSubtitle">Please choose a ToDo list</string>
     
     <string name="prefRandom">Other things</string>
     <string name="prefAbout">About this program</string>
