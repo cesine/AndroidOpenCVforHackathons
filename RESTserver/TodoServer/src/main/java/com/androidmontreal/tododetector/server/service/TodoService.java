@@ -109,7 +109,7 @@ public class TodoService {
 		for( TodoList current : lists ) {
 			TodoListDTO dto = new TodoListDTO();
 			dto.setId(current.getId());
-			dto.setName("MockName"); // TODO: Implement
+			dto.setName(current.getName());
 			dtos.add(dto);
 		}
 		
@@ -129,11 +129,11 @@ public class TodoService {
 		TodoList list = dbGetList(id);
 		TodoListDTO dto = new TodoListDTO();
 		dto.setId(list.getId());
-		dto.setName("MockName"); // TODO: Implement
+		dto.setName(list.getName()); 
 		for( Todo current : list.getTodos() ) {
 			TodoDTO todoDTO = new TodoDTO();
 			todoDTO.setId(current.getId());
-			todoDTO.setChecked(false);
+			todoDTO.setChecked(current.isChecked());
 			todoDTO.setImageUrl("http://winniecooper.net/sam/2011/12/img/MIAWINNIE.jpg"); // TODO: Implement
 			dto.getTodos().add(todoDTO);
 		}
@@ -142,16 +142,17 @@ public class TodoService {
 	}
 	
 	@Transactionnal
-	private long dbCreateList() {
+	private long dbCreateList( String name ) {
 		TodoList list = new TodoList();
+		list.setName(name);
 		HibernateUtil.getCurrentSession().saveOrUpdate(list);
 		return list.getId();
 	}
 	
-	@Path("/lists")
+	@Path("/lists/{name}")
 	@PUT
-	public long createList( ) {
-		return dbCreateList() ;
+	public long createList( @PathParam("name") String name ) {
+		return dbCreateList(name) ;
 	}
 	
 	// TODO: Delete list

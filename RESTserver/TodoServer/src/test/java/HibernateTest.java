@@ -1,7 +1,5 @@
 
 
-import java.util.Date;
-
 import org.hibernate.Session;
 
 import com.androidmontreal.tododetector.server.domain.Todo;
@@ -32,6 +30,7 @@ public class HibernateTest {
 			Todo t2 = new Todo();
 			t2.setChecked(false);
 			
+			todoList1.setName("Mock"+i);
 			todoList1.getTodos().add(t1);
 			todoList1.getTodos().add(t2);
 			
