@@ -25,7 +25,6 @@ public class DataExtractor {
 		try {
 			output = parsing.parse(new InputStreamReader(httpEntity.getContent()));
 			outj = output.getAsJsonObject();
-			//outj.remove("lyre");
 
 		} catch (JsonSyntaxException e) {
 

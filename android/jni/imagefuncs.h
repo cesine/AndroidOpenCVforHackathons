@@ -8,6 +8,8 @@ double calcCircularity(std::vector<cv::Point> contour);
 
 std::vector<cv::Point> findCircle(cv::Mat& mbgra);
 std::vector<std::vector<cv::Point> > findAllRectangles(cv::Mat& mbgra);
+std::vector<std::vector<cv::Point> > findDivisionBasedOnWhiteSpace(std::vector<std::vector<cv::Point> > potentialCheckboxes, cv::Mat& mbgra);
+cv::Mat imHist(cv::Mat hist, float scaleX=1, float scaleY=1);
 std::vector<std::vector<cv::Point> > filterSquareByArea(std::vector<std::vector<cv::Point> > checkboxes);
 std::vector<std::vector<cv::Point> > filterSquareByCoordinates(std::vector<std::vector<cv::Point> > checkboxes);
 
