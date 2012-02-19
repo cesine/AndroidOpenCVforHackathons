@@ -33,6 +33,7 @@ void createPreview(Mat mbgra) {
 
 
 	findAllRectangles(mbgra);
+	
 	return;
 	
 	vector<Point> contour = findCircle(mbgra);
