@@ -7,14 +7,15 @@
     <LinearLayout
         android:id="@+id/lytButtonContainer"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent" 
+        android:layout_height="wrap_content" 
         android:orientation="horizontal"
         android:weightSum="1">
+        
     <Button
         android:id="@+id/btnAction"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Save/Refresh/blabla" 
+        android:text="Save" 
         android:layout_weight="0.5"/>
     <Button
         android:id="@+id/btnServer"
@@ -27,8 +28,8 @@
 
     <LinearLayout
         android:id="@+id/lytListContainer"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent" >
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
     </LinearLayout>
 
 </LinearLayout>

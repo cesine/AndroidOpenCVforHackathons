@@ -143,10 +143,16 @@ public class ViewOneList extends SherlockActivity implements INetworkResponse {
 		}
 	}
 	protected void processServerData(Elements communicatedObject) {
+		
 		toaster.printMessage(this, "did it! "+communicatedObject.getListElements().get(0).getImageurl());
+
+		getSupportActionBar().setSubtitle(getString(R.string.actOneListSubtitle)+ communicatedObject.getName());
+		
 		ImageAdapter serverImageAdapter = new ImageAdapter(communicatedObject);
 		getListContainer().removeAllViews();
 
+		toaster.printMessage(this, "adapter _should_ be okay");
+		
 		ListView lListDisplay = new ListView(this);
 		lListDisplay.setAdapter(serverImageAdapter);
 		
@@ -180,7 +186,7 @@ public class ViewOneList extends SherlockActivity implements INetworkResponse {
 	private OnClickListener mServerClickListener = new OnClickListener() {
 		
 		public void onClick(View v) {
-			requestDataFromServer(0);
+			requestDataFromServer(listId);
 		}
 	};
 
@@ -198,7 +204,7 @@ public class ViewOneList extends SherlockActivity implements INetworkResponse {
 	 *******************************************************/
 	public class ImageAdapter extends BaseAdapter {
 		private LayoutInflater mInflater;
-		public List<TodoElement> mElementsList = new ArrayList<TodoElement>();
+		public List<TodoElement> mElementsList = null;
 
 		@SuppressWarnings("unused")
 		private ImageAdapter() {
@@ -212,24 +218,6 @@ public class ViewOneList extends SherlockActivity implements INetworkResponse {
 
 
 		public void initialize() {
-			// use an iterator of the list
-			/*if(imagecursor != null){
-				int image_column_index = imagecursor
-						.getColumnIndex(MediaStore.Images.Media._ID);
-				int count = imagecursor.getCount();
-				for (int i = 0; i < count; i++) {
-					imagecursor.moveToPosition(i);
-					int id = imagecursor.getInt(image_column_index);
-					ImageItem imageItem = new ImageItem();
-					imageItem.id = id;
-					lastId = id;
-					imageItem.img = MediaStore.Images.Thumbnails.getThumbnail(
-							getApplicationContext().getContentResolver(), id,
-							MediaStore.Images.Thumbnails.MICRO_KIND, null);
-					images.add(imageItem);
-				}
-				imagecursor.close();
-			}*/			
 			notifyDataSetChanged();
 		}
 
