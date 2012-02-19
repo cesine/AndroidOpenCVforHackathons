@@ -16,11 +16,13 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AbsListView.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -36,13 +38,14 @@ import com.androidmontreal.tododetector.json.DataExtractor;
 import com.androidmontreal.tododetector.json.datatype.Elements;
 import com.androidmontreal.tododetector.json.datatype.TodoElement;
 import com.androidmontreal.tododetector.network.NetworkChatter;
-import com.androidmontreal.tododetector.network.interfaces.INetworkResponse;
+import com.androidmontreal.tododetector.network.interfaces.IAllListsResponse;
+import com.androidmontreal.tododetector.network.interfaces.IOneListResponse;
 import com.androidmontreal.tododetector.network.utilities.DataDownload;
 import com.androidmontreal.tododetector.ui.toaster;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-public class ViewOneList extends SherlockActivity implements INetworkResponse {
+public class ViewOneList extends SherlockActivity implements IOneListResponse {
 
 	/*******************************************************
 	 *                                                     *
@@ -154,6 +157,8 @@ public class ViewOneList extends SherlockActivity implements INetworkResponse {
 		toaster.printMessage(this, "adapter _should_ be okay");
 		
 		ListView lListDisplay = new ListView(this);
+		lListDisplay.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.FILL_PARENT));
+		
 		lListDisplay.setAdapter(serverImageAdapter);
 		
 		getListContainer().addView( lListDisplay );
@@ -168,7 +173,7 @@ public class ViewOneList extends SherlockActivity implements INetworkResponse {
 	private String getValueFromPreference(String pKey) {
 		return PreferenceManager.getDefaultSharedPreferences(this).getString(pKey, "");
 	}
-	public void onNetworkResponseReceived(HttpResponse response) {
+	public void onOneListNetworkResponseReceived(HttpResponse response) {
 		processResponseInThread(response);
 	}
 
@@ -277,7 +282,7 @@ public class ViewOneList extends SherlockActivity implements INetworkResponse {
 			return convertView;
 		}
 		void loadImageFromURL(final String pURL, final ImageView targetImVw) {
-			toaster.printMessage(getActivity(), "Attempting to load an image");
+			Log.d(getActivity().getLocalClassName(), "Attempting to load an image");
 			new Thread(new Runnable() {
 				public void run() {
 					try {

@@ -11,7 +11,7 @@ import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 import com.androidmontreal.tododetector.json.datatype.Elements;
 import com.androidmontreal.tododetector.json.DataExtractor;
 import com.androidmontreal.tododetector.network.NetworkChatter;
-import com.androidmontreal.tododetector.network.interfaces.INetworkResponse;
+import com.androidmontreal.tododetector.network.interfaces.IAllListsResponse;
 import com.androidmontreal.tododetector.pref.PreferenceConstants;
 import com.androidmontreal.tododetector.service.ImageUploadService;
 import com.androidmontreal.tododetector.ui.list.ViewLists;
