@@ -44,8 +44,6 @@ public class MainPortal extends SherlockActivity  {
 	 *                   Class Variables                   *
 	 *                                                     *
 	 *******************************************************/
-	// Inter-thread Message Handler
-	private final Handler mMessageChannel = new Handler();
 	
 	private static final String EXTRA_WATER_SOURCE_CODE = null;
 	private String imageSourceCodeFileName = "";

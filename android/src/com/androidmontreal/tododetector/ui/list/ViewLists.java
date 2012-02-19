@@ -12,9 +12,12 @@ import com.androidmontreal.tododetector.json.DataExtractor;
 import com.androidmontreal.tododetector.json.datatype.*;
 import com.androidmontreal.tododetector.network.NetworkChatter;
 import com.androidmontreal.tododetector.network.interfaces.INetworkResponse;
+import com.androidmontreal.tododetector.ui.MainPortal;
 import com.androidmontreal.tododetector.ui.toaster;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -24,8 +27,16 @@ import com.actionbarsherlock.app.SherlockListActivity;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-public class ViewLists extends SherlockListActivity  implements INetworkResponse {
+public class ViewLists extends SherlockListActivity implements INetworkResponse {
 
+	/*******************************************************
+	 *                                                     *
+	 *                   Class Variables                   *
+	 *                                                     *
+	 *******************************************************/
+	// Inter-thread Message Handler
+	private final Handler mMessageChannel = new Handler();
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -117,7 +128,16 @@ public class ViewLists extends SherlockListActivity  implements INetworkResponse
 	protected void processServerData(Elements communicatedObject) {
 		toaster.printMessage(this, "did it! "+communicatedObject.getListElements().get(0).getImageurl());
 	}
-	
+
+	/*******************************************************
+	 *                                                     *
+	 *                   Utility Methods                   *
+	 *                                                     *
+	 *******************************************************/
+	private ViewLists getActivity() {return this;}
+	private String getValueFromPreference(String pKey) {
+		return PreferenceManager.getDefaultSharedPreferences(this).getString(pKey, "");
+	}
 	public void onNetworkResponseReceived(HttpResponse response) {
 		processResponseInThread(response);
 	}
