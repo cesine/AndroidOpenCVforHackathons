@@ -25,7 +25,8 @@ double calcCircularity(vector<Point> contour) {
 	return circularity;
 }
 
-
+/* Write image to the SDCARD */
+//imwrite("/sdcard/Todos/afilename.png", mbgra);
 
 
 /* Finds all the rectangles in a region */
@@ -87,6 +88,17 @@ vector<Rect> findAllRectangles(Mat& mbgra) {
 	
 	return vector<Rect>(0);
 }
+
+/*
+Find the vertical divide line where most of the rectangles are on one side of the image.
+-sort the contours
+-get boundign rectanle then
+-get their left right position the x of the rectangle 
+-take the middle?
+*/
+
+
+
 
 /* Finds the circle in a region */
 vector<Point> findCircle(Mat& mbgra) {
