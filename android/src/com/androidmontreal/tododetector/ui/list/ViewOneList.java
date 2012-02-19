@@ -16,11 +16,13 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AbsListView.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -154,6 +156,8 @@ public class ViewOneList extends SherlockActivity implements INetworkResponse {
 		toaster.printMessage(this, "adapter _should_ be okay");
 		
 		ListView lListDisplay = new ListView(this);
+		lListDisplay.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.FILL_PARENT));
+		
 		lListDisplay.setAdapter(serverImageAdapter);
 		
 		getListContainer().addView( lListDisplay );
@@ -277,7 +281,7 @@ public class ViewOneList extends SherlockActivity implements INetworkResponse {
 			return convertView;
 		}
 		void loadImageFromURL(final String pURL, final ImageView targetImVw) {
-			toaster.printMessage(getActivity(), "Attempting to load an image");
+			Log.d(getActivity().getLocalClassName(), "Attempting to load an image");
 			new Thread(new Runnable() {
 				public void run() {
 					try {
