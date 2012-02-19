@@ -11,8 +11,8 @@ std::vector<std::vector<cv::Point> > findAllRectangles(cv::Mat& mbgra);
 std::vector<std::vector<cv::Point> > findDivisionBasedOnWhiteSpace(std::vector<std::vector<cv::Point> > potentialCheckboxes, cv::Mat& mbgra);
 cv::Mat imHist(cv::Mat hist, float scaleX=1, float scaleY=1);
 std::vector<std::vector<cv::Point> > filterSquareByArea(std::vector<std::vector<cv::Point> > checkboxes);
-std::vector<std::vector<cv::Point> > filterSquareByCoordinates(std::vector<std::vector<cv::Point> > checkboxes);
-
+std::vector<std::vector<cv::Point> > filterSquareByCoordinates(std::vector<std::vector<cv::Point> > checkboxes, cv::Mat& mbgra);
+bool sortByY(cv::Rect , cv::Rect);
 cv::Mat highpass(cv::Mat& imagef, cv::Mat& mask3C, int blursize);
 
 void removeyellow(cv::Mat& img);

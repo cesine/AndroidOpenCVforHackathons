@@ -55,7 +55,7 @@ vector<vector<Point> > findAllRectangles(Mat& mbgra) {
 	*/
 	vector<vector<Point> > contours;
 	findContours(thresh, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);//###
-	LOGI("Contours: %d", contours.size());
+	//LOGI("Contours: %d", contours.size());
 
 
 	/*
@@ -84,6 +84,7 @@ vector<vector<Point> > findAllRectangles(Mat& mbgra) {
 	
 	checkboxes = filterSquareByArea(checkboxes);
 	
+	checkboxes = filterSquareByCoordinates(checkboxes,mbgra);
 	
     drawContours(mbgra, checkboxes, -1, Scalar(0, 255, 0, 255), 2);
 	
@@ -147,38 +148,44 @@ vector<vector<Point> > findDivisionBasedOnWhiteSpace(vector<vector<Point> > pote
  }
  
  
-  vector<vector<Point> > filterSquareByCoordinates(vector<vector<Point> > checkboxes)
+  vector<vector<Point> > filterSquareByCoordinates(vector<vector<Point> > checkboxes,  Mat& mbgra)
  {
- 	vector<double> checkBoxAreas;
- 	
- 	//get checkboxes areas
+ 	vector<Rect> checkBoxRect;
+ 	//get checkboxes boundingRect
  	for (int i = 0; i < checkboxes.size(); i++) {
  		vector<Point> checkbox;
  	    checkbox = checkboxes[i]; 
- 	    double potentialCheckboxArea = contourArea(checkbox);
- 	    checkBoxAreas.push_back(potentialCheckboxArea);
+ 	    
+ 	    Rect rect = boundingRect(checkboxes[i]);
+ 	    
+ 	    checkBoxRect.push_back(rect);
  	}
  	
- 	sort(checkBoxAreas.begin() , checkBoxAreas.end());
- 	double bigestArea = checkBoxAreas.back();
- 	
- 	const double miniumAreaPercentage = 0.3;
- 	double minimumAreaRequired  = bigestArea * miniumAreaPercentage;
- 	
+ 	sort(checkBoxRect.begin() , checkBoxRect.end(),sortByY);
+ 	Rect rect = checkBoxRect.back();
+ 	double leftY = rect.y;
+ 	LOGI("X : %f  width : %f", leftY, rect.width);
+ 	double minimumYRequired  = leftY - 20 ;
+ 
  	vector<vector<Point> > selectedCheckboxes;
- 	//get bigest checkboxes
+ 	//get left checkboxes
  	for (int i = 0; i < checkboxes.size(); i++) {
  		vector<Point> checkbox;
  	    checkbox = checkboxes[i];
  	     
- 	    double checkboxArea = contourArea(checkbox);
- 	    if(checkboxArea > minimumAreaRequired){
+ 	    Rect checkboxSquare = boundingRect(checkbox);
+ 	    if(checkboxSquare.y > minimumYRequired){
  	    	selectedCheckboxes.push_back(checkbox);
  	    }
  	}
+
  	return selectedCheckboxes;
  }
  
+ 
+ bool sortByY(Rect rect1, Rect rect2){
+ 	return (rect2.y-rect1.y > 0);
+ }
  
 
 /* Finds the circle in a region */
