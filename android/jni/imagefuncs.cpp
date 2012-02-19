@@ -123,6 +123,40 @@ vector<vector<Point> > findAllRectangles(Mat& mbgra) {
  	return selectedCheckboxes;
  }
  
+ 
+  vector<vector<Point> > filterSquareByCoordinates(vector<vector<Point> > checkboxes)
+ {
+ 	vector<double> checkBoxAreas;
+ 	
+ 	//get checkboxes areas
+ 	for (int i = 0; i < checkboxes.size(); i++) {
+ 		vector<Point> checkbox;
+ 	    checkbox = checkboxes[i]; 
+ 	    double potentialCheckboxArea = contourArea(checkbox);
+ 	    checkBoxAreas.push_back(potentialCheckboxArea);
+ 	}
+ 	
+ 	sort(checkBoxAreas.begin() , checkBoxAreas.end());
+ 	double bigestArea = checkBoxAreas.back();
+ 	
+ 	const double miniumAreaPercentage = 0.3;
+ 	double minimumAreaRequired  = bigestArea * miniumAreaPercentage;
+ 	
+ 	vector<vector<Point> > selectedCheckboxes;
+ 	//get bigest checkboxes
+ 	for (int i = 0; i < checkboxes.size(); i++) {
+ 		vector<Point> checkbox;
+ 	    checkbox = checkboxes[i];
+ 	     
+ 	    double checkboxArea = contourArea(checkbox);
+ 	    if(checkboxArea > minimumAreaRequired){
+ 	    	selectedCheckboxes.push_back(checkbox);
+ 	    }
+ 	}
+ 	return selectedCheckboxes;
+ }
+ 
+ 
 
 /* Finds the circle in a region */
 vector<Point> findCircle(Mat& mbgra) {
