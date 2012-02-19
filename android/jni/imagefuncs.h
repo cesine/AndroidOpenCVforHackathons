@@ -7,7 +7,7 @@
 double calcCircularity(std::vector<cv::Point> contour);
 
 std::vector<cv::Point> findCircle(cv::Mat& mbgra);
-std::vector<cv::Rect> findAllRectangles(cv::Mat& mbgra);
+std::vector<std::vector<cv::Point> > findAllRectangles(cv::Mat& mbgra);
 
 cv::Mat highpass(cv::Mat& imagef, cv::Mat& mask3C, int blursize);
 

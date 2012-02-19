@@ -25,11 +25,8 @@ double calcCircularity(vector<Point> contour) {
 	return circularity;
 }
 
-
-
-
 /* Finds all the rectangles in a region */
-vector<Rect> findAllRectangles(Mat& mbgra) {
+vector<vector<Point> > findAllRectangles(Mat& mbgra) {
 	int width = mbgra.size[1];
 	int height = mbgra.size[0];
 
@@ -76,17 +73,43 @@ vector<Rect> findAllRectangles(Mat& mbgra) {
 
 		if (rectangularity < 0.8)
 			continue;
-		checkboxes.push_back (contours[i]);
+		checkboxes.push_back (convex);
 	}
 	//LOGI("Potential Checkboxes: %d", checkboxes.size());
+	
+	
+	
+	
 	
     drawContours(mbgra, checkboxes, -1, Scalar(0, 255, 0, 255), 2);
 	
 	
 	mbgra.setTo(Scalar(0, 0, 255, 255), thresh);//thresh is the mask to draw
 	
-	return vector<Rect>(0);
+	return checkboxes;
 }
+
+/*
+ vector<vector<Point> > filterSquareByArea(vector<vector<Point> > checkboxes)
+ {
+ 	for (int i = 0; i < checkboxes.size(); i++) {
+ 	vector<Point> checkbox;
+ 	vector<double> checkBoxAreas;
+ 	    checkbox = checkboxes[i]; 
+ 	    double potentialCheckboxArea = contourArea(checkbox);
+ 	    checkBoxAreas.push_back();
+ 	}
+ 	
+ 	for (int i = 0; i < checkBoxAreas.size(); i++) {
+ 		
+ 		
+ 	}
+ 	
+ 	
+ }
+ 
+  */	
+ 
 
 /* Finds the circle in a region */
 vector<Point> findCircle(Mat& mbgra) {
@@ -145,7 +168,6 @@ vector<Point> findCircle(Mat& mbgra) {
 	return vector<Point>(0);
 }
 
-
 /* Highpass of the image 
   image is a 3-channel 8-bit image
   mask3C is a 3-channel mask with 255 for yes, 0 for no.
@@ -171,7 +193,6 @@ Mat highpass(Mat& image, Mat& mask3C, int blursize) {
 
 	return highpass/255;
 }
-
 
 /* Removes yellow lines from the image by minimizing the edges when 
  calculating green*(1+lambda)-blue*lambda.
