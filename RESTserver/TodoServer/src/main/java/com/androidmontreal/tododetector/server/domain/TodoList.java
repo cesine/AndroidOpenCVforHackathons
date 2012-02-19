@@ -21,6 +21,8 @@ public class TodoList {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	private String name ;
+	
 	@OneToMany
 	private List<Todo> todos = new ArrayList<Todo>();
 
@@ -28,12 +30,20 @@ public class TodoList {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public String getName() {
+		return name;
 	}
 
 	public List<Todo> getTodos() {
 		return todos;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setTodos(List<Todo> todos) {

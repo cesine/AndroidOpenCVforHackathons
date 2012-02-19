@@ -16,11 +16,13 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AbsListView.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -36,13 +38,14 @@ import com.androidmontreal.tododetector.json.DataExtractor;
 import com.androidmontreal.tododetector.json.datatype.Elements;
 import com.androidmontreal.tododetector.json.datatype.TodoElement;
 import com.androidmontreal.tododetector.network.NetworkChatter;
-import com.androidmontreal.tododetector.network.interfaces.INetworkResponse;
+import com.androidmontreal.tododetector.network.interfaces.IAllListsResponse;
+import com.androidmontreal.tododetector.network.interfaces.IOneListResponse;
 import com.androidmontreal.tododetector.network.utilities.DataDownload;
 import com.androidmontreal.tododetector.ui.toaster;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-public class ViewOneList extends SherlockActivity implements INetworkResponse {
+public class ViewOneList extends SherlockActivity implements IOneListResponse {
 
 	/*******************************************************
 	 *                                                     *
@@ -143,11 +146,19 @@ public class ViewOneList extends SherlockActivity implements INetworkResponse {
 		}
 	}
 	protected void processServerData(Elements communicatedObject) {
+		
 		toaster.printMessage(this, "did it! "+communicatedObject.getListElements().get(0).getImageurl());
+
+		getSupportActionBar().setSubtitle(getString(R.string.actOneListSubtitle)+ communicatedObject.getName());
+		
 		ImageAdapter serverImageAdapter = new ImageAdapter(communicatedObject);
 		getListContainer().removeAllViews();
 
+		toaster.printMessage(this, "adapter _should_ be okay");
+		
 		ListView lListDisplay = new ListView(this);
+		lListDisplay.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.FILL_PARENT));
+		
 		lListDisplay.setAdapter(serverImageAdapter);
 		
 		getListContainer().addView( lListDisplay );
@@ -162,7 +173,7 @@ public class ViewOneList extends SherlockActivity implements INetworkResponse {
 	private String getValueFromPreference(String pKey) {
 		return PreferenceManager.getDefaultSharedPreferences(this).getString(pKey, "");
 	}
-	public void onNetworkResponseReceived(HttpResponse response) {
+	public void onOneListNetworkResponseReceived(HttpResponse response) {
 		processResponseInThread(response);
 	}
 
@@ -180,7 +191,7 @@ public class ViewOneList extends SherlockActivity implements INetworkResponse {
 	private OnClickListener mServerClickListener = new OnClickListener() {
 		
 		public void onClick(View v) {
-			requestDataFromServer(0);
+			requestDataFromServer(listId);
 		}
 	};
 
@@ -198,7 +209,7 @@ public class ViewOneList extends SherlockActivity implements INetworkResponse {
 	 *******************************************************/
 	public class ImageAdapter extends BaseAdapter {
 		private LayoutInflater mInflater;
-		public List<TodoElement> mElementsList = new ArrayList<TodoElement>();
+		public List<TodoElement> mElementsList = null;
 
 		@SuppressWarnings("unused")
 		private ImageAdapter() {
@@ -212,24 +223,6 @@ public class ViewOneList extends SherlockActivity implements INetworkResponse {
 
 
 		public void initialize() {
-			// use an iterator of the list
-			/*if(imagecursor != null){
-				int image_column_index = imagecursor
-						.getColumnIndex(MediaStore.Images.Media._ID);
-				int count = imagecursor.getCount();
-				for (int i = 0; i < count; i++) {
-					imagecursor.moveToPosition(i);
-					int id = imagecursor.getInt(image_column_index);
-					ImageItem imageItem = new ImageItem();
-					imageItem.id = id;
-					lastId = id;
-					imageItem.img = MediaStore.Images.Thumbnails.getThumbnail(
-							getApplicationContext().getContentResolver(), id,
-							MediaStore.Images.Thumbnails.MICRO_KIND, null);
-					images.add(imageItem);
-				}
-				imagecursor.close();
-			}*/			
 			notifyDataSetChanged();
 		}
 
@@ -289,7 +282,7 @@ public class ViewOneList extends SherlockActivity implements INetworkResponse {
 			return convertView;
 		}
 		void loadImageFromURL(final String pURL, final ImageView targetImVw) {
-			toaster.printMessage(getActivity(), "Attempting to load an image");
+			Log.d(getActivity().getLocalClassName(), "Attempting to load an image");
 			new Thread(new Runnable() {
 				public void run() {
 					try {
