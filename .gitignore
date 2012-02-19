@@ -6,6 +6,7 @@ assets/analytics_website_script.html
 .project
 .settings
 .classpath
+project.properties
 
 bin
 gen
