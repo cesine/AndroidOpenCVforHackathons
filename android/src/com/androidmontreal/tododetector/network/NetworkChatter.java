@@ -5,6 +5,7 @@ import org.apache.http.client.methods.HttpGet;
 import android.os.Handler;
 
 import com.androidmontreal.tododetector.network.interfaces.IAllListsResponse;
+import com.androidmontreal.tododetector.network.interfaces.ICreateList;
 import com.androidmontreal.tododetector.network.interfaces.IOneListResponse;
 
 public class NetworkChatter {
@@ -14,6 +15,9 @@ public class NetworkChatter {
 		(new AsynchronousSender(reqData, new Handler(), new MessageMachine(listeningActivity))).start();
 	}
 	*/
+	public static void createOneList(String pURL, String pName, ICreateList listeningActivity) {
+		// Future list creation
+	}
 
 	public static void getOneList(String pURL, long pListID, IOneListResponse listeningActivity) {
 		HttpGet reqData = new HttpGet(generateCommandURL(pURL, "lists/"+pListID));
