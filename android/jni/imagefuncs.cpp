@@ -92,7 +92,8 @@ vector<vector<Point> > findAllRectangles(Mat& mbgra) {
 	
 	
 	findDivisionBasedOnWhiteSpace(checkboxes, mbgra);
-	
+	getCropOfToDoLines(checkboxes, mbgra);
+		
 	return checkboxes;
 }
 
@@ -106,10 +107,47 @@ http://laconsigna.wordpress.com/2011/04/29/1d-histogram-on-opencv/
 */
 vector<vector<Point> > findDivisionBasedOnWhiteSpace(vector<vector<Point> > potentialCheckboxes, Mat& mbgra)
 {
-
 	return potentialCheckboxes;
 }
+/*
+Crop the lines
+*/
+vector<vector<Point> > getCropOfToDoLines(vector<vector<Point> > checkboxes, Mat& mbgra)
+{
+	for (int i = 0; i < checkboxes.size(); i++) {
+		Rect rect = boundingRect(checkboxes[i]);
+		int margin = 5;
 
+		int a = rect.x - margin ;
+		int b = rect.y - margin -80;
+		int c = rect.width + margin * 2 ;
+		int d = rect.height + margin * 2 +40;
+		
+		
+		// Draw rectangle
+		rectangle(
+				mbgra,
+				Rect(a, 
+						b,
+						c,
+						d), Scalar(200, 200, 0, 255), 2);
+		//Mat imgroi = image(Rect(a, b, c, d));
+		//imwrite("/sdcard/Todos/afilename.png", imgroi);
+		
+
+	}
+	return checkboxes;
+}
+/*
+e <= jni_part.cpp
+Compile++ thumb  : native_sample <= imagefuncs.cpp
+jni/imagefuncs.h: In function 'std::vector<std::vector<cv::Point_<int> > > findAllRectangles(cv::Mat&)':
+jni/imagefuncs.h:12: error: too few arguments to function 'std::vector<std::vector<cv::Point_<int> > > getCropOfToDoLines(std::vector<std::vector<cv::Point_<int> > >, cv::Mat&)'
+jni/imagefuncs.cpp:95: error: at this point in file
+jni/imagefuncs.cpp: In function 'std::vector<std::vector<cv::Point_<int> > > getCropOfToDoLines(std::vector<std::vector<cv::Point_<int> > >, cv::Mat&)':
+jni/imagefuncs.cpp:118: error: 'contours' was not declared in this scope
+make: *** [obj/local/armeabi/objs/native_sample/imagefuncs.o] Error 1
+*/
 
 
  //TODO : don't use the biggest area as reference to avoid bug if a big square exist
