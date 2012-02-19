@@ -117,14 +117,23 @@ vector<vector<Point> > getCropOfToDoLines(vector<vector<Point> > checkboxes, Mat
 	for (int i = 0; i < checkboxes.size(); i++) {
 		Rect rect = boundingRect(checkboxes[i]);
 		int margin = 5;
-		int topy = rect.y+margin;
-		int bottomy = rect.y+rect.height+margin;
+
+		int a = rect.x - margin ;
+		int b = rect.y - margin -80;
+		int c = rect.width + margin * 2 ;
+		int d = rect.height + margin * 2 +40;
+		
+		
 		// Draw rectangle
 		rectangle(
 				mbgra,
-				Rect(rect.x - margin, rect.y - margin,
-						rect.width + margin * 2,
-						rect.height + margin * 2), Scalar(200, 200, 0, 255), 2);
+				Rect(a, 
+						b,
+						c,
+						d), Scalar(200, 200, 0, 255), 2);
+		//Mat imgroi = image(Rect(a, b, c, d));
+		//imwrite("/sdcard/Todos/afilename.png", imgroi);
+		
 
 	}
 	return checkboxes;
