@@ -100,20 +100,15 @@ vector<vector<Point> > findAllRectangles(Mat& mbgra) {
 /*
 Find the vertical divide line where most of the rectangles are on one side of the image.
 - get a histogram of the image
-- find the spike where the checbox are, followed by a valley where there is white space, 
+- find the spike where the checkbox are, followed by a valley where there is white space, 
 - consider contours with  x's less than the white space to be checkboxes
 http://laconsigna.wordpress.com/2011/04/29/1d-histogram-on-opencv/
 */
 vector<vector<Point> > findDivisionBasedOnWhiteSpace(vector<vector<Point> > potentialCheckboxes, Mat& mbgra)
 {
-	Mat img = imread( mbgra, CV_LOAD_IMAGE_COLOR );
+	Mat img =  mbgra;
 
 
-  // always check
-  if( img.data == NULL ) {
-    cout << "Cannot load file " << argv[1] << endl;
-    return 1;
-  }
 
   //Hold the histogram
   MatND hist;
@@ -144,6 +139,13 @@ vector<vector<Point> > findDivisionBasedOnWhiteSpace(vector<vector<Point> > pote
   // show image
  // imshow("Image", img);
 
+	float maxVal=0;
+    float minVal=0;
+    int maxX=0;
+    int minX=0;
+    cvGetMinMaxHistValue(hist, &minVal, &maxVal, &minX, &maxX);
+    LOGI("Max value: %f", maxVal );
+	LOGI("X of Max value: %d", maxX );
 
 	/*
 	Get x of the rectangles into a histogram to find a line of checkboxes
@@ -190,6 +192,49 @@ Mat imHist(Mat hist, float scaleX=1, float scaleY=1){
   }
   return histImg;
 }
+
+/*
+
+
+r2.3.3.so => libs/armeabi/libnative_camera_r2.3.3.so
+Compile++ thumb  : native_sample <= imagefuncs.cpp
+jni/imagefuncs.cpp: In function 'std::vector<std::vector<cv::Point_<int> > > findDivisionBasedOnWhiteSpace(std::vector<std::vector<cv::Point_<int> > >, cv::Mat&)':
+jni/imagefuncs.cpp:154: error: 'minX' was not declared in this scope
+jni/imagefuncs.cpp: In function 'cv::Mat imHist(cv::Mat, float, float)':
+jni/imagefuncs.cpp:166: error: default argument given for parameter 2 of 'cv::Mat imHist(cv::Mat, float, float)'
+jni/imagefuncs.h:12: error: after previous specification in 'cv::Mat imHist(cv::Mat, float, float)'
+jni/imagefuncs.cpp:166: error: default argument given for parameter 3 of 'cv::Mat imHist(cv::Mat, float, float)'
+jni/imagefuncs.h:12: error: after previous specification in 'cv::Mat imHist(cv::Mat, float, float)'
+make: *** [obj/local/armeabi/objs/native_sample/imagefuncs.o] Error 1
+
+
+Install        : libnative_camera_r2.2.2.so => libs/armeabi/libnative_camera_r2.2.2.so
+Install        : libnative_camera_r2.3.3.so => libs/armeabi/libnative_camera_r2.3.3.so
+Compile++ thumb  : native_sample <= imagefuncs.cpp
+jni/imagefuncs.cpp: In function 'std::vector<std::vector<cv::Point_<int> > > findDivisionBasedOnWhiteSpace(std::vector<std::vector<cv::Point_<int> > >, cv::Mat&)':
+jni/imagefuncs.cpp:146: error: no matching function for call to 'minMaxLoc(cv::MatND&, float*, float*, int*, int*)'
+/Users/gina/opencv/OpenCV-2.3.1-android-bin/OpenCV-2.3.1/share/OpenCV/../../include/opencv2/core/core.hpp:2028: note: candidates are: void cv::minMaxLoc(const cv::_InputArray&, double*, double*, cv::Point*, cv::Point*, const cv::_InputArray&)
+/Users/gina/opencv/OpenCV-2.3.1-android-bin/OpenCV-2.3.1/share/OpenCV/../../include/opencv2/core/core.hpp:3443: note:                 void cv::minMaxLoc(const cv::SparseMat&, double*, double*, int*, int*)
+jni/imagefuncs.cpp: In function 'cv::Mat imHist(cv::Mat, float, float)':
+jni/imagefuncs.cpp:173: error: default argument given for parameter 2 of 'cv::Mat imHist(cv::Mat, float, float)'
+jni/imagefuncs.h:12: error: after previous specification in 'cv::Mat imHist(cv::Mat, float, float)'
+jni/imagefuncs.cpp:173: error: default argument given for parameter 3 of 'cv::Mat imHist(cv::Mat, float, float)'
+jni/imagefuncs.h:12: error: after previous specification in 'cv::Mat imHist(cv::Mat, float, float)'
+make: *** [obj/local/armeabi/objs/native_sample/imagefuncs.o] Error 1
+
+       : libnative_camera_r2.3.3.so => libs/armeabi/libnative_camera_r2.3.3.so
+Compile++ thumb  : native_sample <= imagefuncs.cpp
+jni/imagefuncs.cpp: In function 'std::vector<std::vector<cv::Point_<int> > > findDivisionBasedOnWhiteSpace(std::vector<std::vector<cv::Point_<int> > >, cv::Mat&)':
+jni/imagefuncs.cpp:146: error: cannot convert 'cv::MatND' to 'const CvHistogram*' for argument '1' to 'void cvGetMinMaxHistValue(const CvHistogram*, float*, float*, int*, int*)'
+jni/imagefuncs.cpp: In function 'cv::Mat imHist(cv::Mat, float, float)':
+jni/imagefuncs.cpp:173: error: default argument given for parameter 2 of 'cv::Mat imHist(cv::Mat, float, float)'
+jni/imagefuncs.h:12: error: after previous specification in 'cv::Mat imHist(cv::Mat, float, float)'
+jni/imagefuncs.cpp:173: error: default argument given for parameter 3 of 'cv::Mat imHist(cv::Mat, float, float)'
+jni/imagefuncs.h:12: error: after previous specification in 'cv::Mat imHist(cv::Mat, float, float)'
+make: *** [obj/local/armeabi/objs/native_sample/imagefuncs.o] Error 1
+
+
+*/
 
 
 
