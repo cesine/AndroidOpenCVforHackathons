@@ -82,7 +82,7 @@ vector<vector<Point> > findAllRectangles(Mat& mbgra) {
 	//LOGI("Potential Checkboxes: %d", checkboxes.size());
 	
 	
-	
+	checkboxes = filterSquareByArea(checkboxes);
 	
 	
     drawContours(mbgra, checkboxes, -1, Scalar(0, 255, 0, 255), 2);
@@ -149,22 +149,38 @@ vector<vector<Point> > findDivisionBasedOnWhiteSpace(vector<vector<Point> > pote
 
 
 
+ //TODO : don't use the biggest area as reference to avoid bug if a big square exist
+ //return the squares with the biggest area 
  vector<vector<Point> > filterSquareByArea(vector<vector<Point> > checkboxes)
  {
- 	for (int i = 0; i < checkboxes.size(); i++) {
- 	vector<Point> checkbox;
  	vector<double> checkBoxAreas;
+ 	
+ 	//get checkboxes areas
+ 	for (int i = 0; i < checkboxes.size(); i++) {
+ 		vector<Point> checkbox;
  	    checkbox = checkboxes[i]; 
  	    double potentialCheckboxArea = contourArea(checkbox);
- 	    checkBoxAreas.push_back();
+ 	    checkBoxAreas.push_back(potentialCheckboxArea);
  	}
  	
- 	for (int i = 0; i < checkBoxAreas.size(); i++) {
- 		
- 		
+ 	sort(checkBoxAreas.begin() , checkBoxAreas.end());
+ 	double bigestArea = checkBoxAreas.back();
+ 	
+ 	const double miniumAreaPercentage = 0.3;
+ 	double minimumAreaRequired  = bigestArea * miniumAreaPercentage;
+ 	
+ 	vector<vector<Point> > selectedCheckboxes;
+ 	//get bigest checkboxes
+ 	for (int i = 0; i < checkboxes.size(); i++) {
+ 		vector<Point> checkbox;
+ 	    checkbox = checkboxes[i];
+ 	     
+ 	    double checkboxArea = contourArea(checkbox);
+ 	    if(checkboxArea > minimumAreaRequired){
+ 	    	selectedCheckboxes.push_back(checkbox);
+ 	    }
  	}
- 	
- 	
+ 	return selectedCheckboxes;
  }
  
 
