@@ -90,16 +90,62 @@ vector<vector<Point> > findAllRectangles(Mat& mbgra) {
 	
 	mbgra.setTo(Scalar(0, 0, 255, 255), thresh);//thresh is the mask to draw
 	
+	
+	findDivisionBasedOnWhiteSpace(checkboxes, mbgra);
+	
 	return checkboxes;
 }
 
+
 /*
 Find the vertical divide line where most of the rectangles are on one side of the image.
--sort the contours
--get boundign rectanle then
--get their left right position the x of the rectangle 
--take the middle?
+- get a histogram of the image
+- find the spike where the checbox are, followed by a valley where there is white space, 
+- consider contours with  x's less than the white space to be checkboxes
 */
+vector<vector<Point> > findDivisionBasedOnWhiteSpace(vector<vector<Point> > potentialCheckboxes, Mat& mbgra)
+{
+
+	MatND whitespace;
+	int channels[] = {0, 1};
+	calcHist( mbgra, 1, channels, Mat(), // do not use mask
+             whitespace, 2, histSize, ranges,
+             true, // the histogram is uniform
+             false );
+    double maxVal=0;
+    double minVal=0;
+    double maxX=0;
+    double minX=0;
+    minMaxLoc(whitespace, &minVal, &maxVal, minX, maxX);
+    LOGI("Max value: %f", maxVal );
+	LOGI("X of Max value: %f", maxX );
+	
+	/*
+	Get x of the rectangles into a histogram to find a line of checkboxes
+	*/
+	vector<vector<Point> > leftcheckboxes;
+	
+	for (int i = 0; i < potentialCheckboxes.size(); i++) {
+		/*
+		Get bounding rectangles to have the x and y of the contour
+		*/
+		Rect rect = boundingRect(potentialCheckboxes[i]);
+		LOGI("The x of the rectangle: %f", rect.x);
+	
+		if(rect.x < minX){
+			leftcheckboxes.push_back(potentialCheckboxes[i]);
+			LOGI("Found a left checkbox: %f", rect.x);
+	
+		}
+	}
+		
+	
+    drawContours(mbgra, leftcheckboxes, -1, Scalar(200, 200, 0, 255), 2);
+	
+	cvHistRelease(whitespace);
+	return leftcheckboxes;
+}
+
 
 
 
