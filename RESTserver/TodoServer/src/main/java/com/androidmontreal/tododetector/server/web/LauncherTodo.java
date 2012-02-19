@@ -60,6 +60,8 @@ public class LauncherTodo {
 		// Start the server
 		server.start();
 		server.join();
+		
+		
 	}
 	
 }
