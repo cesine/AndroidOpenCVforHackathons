@@ -53,3 +53,6 @@ Thumbs.db
 
 android/.classpath
 android/lint.xml
+
+android/.project
+android/.cproject
