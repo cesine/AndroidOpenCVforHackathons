@@ -102,29 +102,53 @@ Find the vertical divide line where most of the rectangles are on one side of th
 - get a histogram of the image
 - find the spike where the checbox are, followed by a valley where there is white space, 
 - consider contours with  x's less than the white space to be checkboxes
+http://laconsigna.wordpress.com/2011/04/29/1d-histogram-on-opencv/
 */
 vector<vector<Point> > findDivisionBasedOnWhiteSpace(vector<vector<Point> > potentialCheckboxes, Mat& mbgra)
 {
+	Mat img = imread( mbgra, CV_LOAD_IMAGE_COLOR );
 
-	MatND whitespace;
-	int channels[] = {0, 1};
-	calcHist( mbgra, 1, channels, Mat(), // do not use mask
-             whitespace, 2, histSize, ranges,
-             true, // the histogram is uniform
-             false );
-    double maxVal=0;
-    double minVal=0;
-    double maxX=0;
-    double minX=0;
-    minMaxLoc(whitespace, &minVal, &maxVal, minX, maxX);
-    LOGI("Max value: %f", maxVal );
-	LOGI("X of Max value: %f", maxX );
-	
+
+  // always check
+  if( img.data == NULL ) {
+    cout << "Cannot load file " << argv[1] << endl;
+    return 1;
+  }
+
+  //Hold the histogram
+  MatND hist;
+  Mat histImg;
+  int nbins = 256; // lets hold 256 levels
+  int hsize[] = { nbins }; // just one dimension
+  float range[] = { 0, 255 };
+  const float *ranges[] = { range };
+  int chnls[] = {0};
+
+  // create colors channels
+  vector<Mat> colors;
+  split(img, colors);
+
+  // compute for all colors
+  calcHist(&colors[0], 1, chnls, Mat(), hist,1,hsize,ranges);
+  histImg = imHist(hist,3,3);
+  //imshow("Blue",histImg);
+
+  calcHist(&colors[1], 1, chnls, Mat(), hist,1,hsize,ranges);
+  histImg = imHist(hist,3,3);
+ // imshow("Green",histImg);
+
+  calcHist(&colors[2], 1, chnls, Mat(), hist,1,hsize,ranges);
+  histImg = imHist(hist,3,3);
+  //imshow("Red",histImg);
+
+  // show image
+ // imshow("Image", img);
+
+
 	/*
 	Get x of the rectangles into a histogram to find a line of checkboxes
 	*/
 	vector<vector<Point> > leftcheckboxes;
-	
 	for (int i = 0; i < potentialCheckboxes.size(); i++) {
 		/*
 		Get bounding rectangles to have the x and y of the contour
@@ -135,17 +159,37 @@ vector<vector<Point> > findDivisionBasedOnWhiteSpace(vector<vector<Point> > pote
 		if(rect.x < minX){
 			leftcheckboxes.push_back(potentialCheckboxes[i]);
 			LOGI("Found a left checkbox: %f", rect.x);
-	
 		}
 	}
 		
 	
     drawContours(mbgra, leftcheckboxes, -1, Scalar(200, 200, 0, 255), 2);
-	
-	cvHistRelease(whitespace);
 	return leftcheckboxes;
 }
 
+
+Mat imHist(Mat hist, float scaleX=1, float scaleY=1){
+  double maxVal=0;
+  minMaxLoc(hist, 0, &maxVal, 0, 0);
+  int rows = 64; //default height size
+  int cols = hist.rows; //get the width size from the histogram
+  Mat histImg = Mat::zeros(rows*scaleX, cols*scaleY, CV_8UC3);
+  //for each bin
+  for(int i=0;i<cols-1;i++) {
+    float histValue = hist.at<float>(i,0);
+    float nextValue = hist.at<float>(i+1,0);
+    Point pt1 = Point(i*scaleX, rows*scaleY);
+    Point pt2 = Point(i*scaleX+scaleX, rows*scaleY);
+    Point pt3 = Point(i*scaleX+scaleX, (rows-nextValue*rows/maxVal)*scaleY);
+    Point pt4 = Point(i*scaleX, (rows-nextValue*rows/maxVal)*scaleY);
+
+    int numPts = 5;
+    Point pts[] = {pt1, pt2, pt3, pt4, pt1};
+
+    fillConvexPoly(histImg, pts, numPts, Scalar(255,255,255));
+  }
+  return histImg;
+}
 
 
 
