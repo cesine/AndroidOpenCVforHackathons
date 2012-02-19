@@ -74,7 +74,7 @@ public class MainPortal extends SherlockActivity  {
 		prefsMenu.setOnMenuItemClickListener(getPrefsInvokeClickListener());
 		
 
-		return super.onCreateOptionsMenu(menu);
+		 return super.onCreateOptionsMenu(menu);
 	}	
 	
 	@Override

@@ -5,7 +5,8 @@ assets/analytics_website_script.html
 .externalToolBuilders
 .project
 .settings
-#.classpath
+.classpath
+project.properties
 
 bin
 gen
@@ -46,7 +47,7 @@ target
 
 # OS generated files #
 ######################
-.DS_Store?
+.DS_Store
 ehthumbs.db
 Icon?
 Thumbs.db

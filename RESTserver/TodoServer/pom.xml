@@ -1,0 +1,114 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.androidmontreal.todo.server</groupId>
+   <artifactId>TodoServer</artifactId>
+   <version>0.0.1-SNAPSHOT</version>
+   <name>TodoServer</name>
+   <description>The web services backing the Busy Bees project.</description>
+
+   <dependencies>
+      <dependency>
+         <groupId>org.eclipse.jetty</groupId>
+         <artifactId>jetty-servlet</artifactId>
+         <version>8.0.4.v20111024</version>
+      </dependency>
+      <dependency>
+         <groupId>com.google.inject</groupId>
+         <artifactId>guice</artifactId>
+         <version>3.0</version>
+      </dependency>
+      <dependency>
+         <groupId>com.sun.jersey</groupId>
+         <artifactId>jersey-server</artifactId>
+         <version>1.11</version>
+      </dependency>
+      <dependency>
+         <groupId>com.sun.jersey.contribs</groupId>
+         <artifactId>jersey-guice</artifactId>
+         <version>1.11</version>
+      </dependency>
+      <dependency>
+         <groupId>com.sun.jersey</groupId>
+         <artifactId>jersey-json</artifactId>
+         <version>1.11</version>
+      </dependency>
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <version>4.10</version>
+      </dependency>
+      <dependency>
+         <groupId>org.eclipse.jetty</groupId>
+         <artifactId>example-jetty-embedded</artifactId>
+         <version>8.0.4.v20111024</version>
+      </dependency>
+      <dependency>
+         <groupId>org.hibernate</groupId>
+         <artifactId>hibernate-core</artifactId>
+         <version>3.6.9.Final</version>
+      </dependency>
+      <dependency>
+         <groupId>org.hibernate</groupId>
+         <artifactId>hibernate-validator</artifactId>
+         <version>4.2.0.Final</version>
+      </dependency>
+      <dependency>
+         <groupId>org.hibernate</groupId>
+         <artifactId>hibernate-entitymanager</artifactId>
+         <version>3.6.9.Final</version>
+      </dependency>
+      <dependency>
+         <groupId>mysql</groupId>
+         <artifactId>mysql-connector-java</artifactId>
+         <version>5.1.18</version>
+      </dependency>
+      <dependency>
+         <groupId>ch.qos.logback</groupId>
+         <artifactId>logback-classic</artifactId>
+         <version>1.0.0</version>
+      </dependency>
+      
+      <!-- Just realized we already get decent AOP with Guice. -->
+      <!-- 
+      <dependency>
+         <groupId>org.aspectj</groupId>
+         <artifactId>aspectjrt</artifactId>
+         <version>1.6.11</version>
+      </dependency>
+      <dependency>
+         <groupId>org.aspectj</groupId>
+         <artifactId>aspectjtools</artifactId>
+         <version>1.6.11</version>
+      </dependency>
+       -->
+   </dependencies>
+
+   <!-- Just realized we already get decent AOP with Guice. -->
+   <!-- 
+   <build>
+      <plugins>
+         <plugin>
+            required to resolve aspectj-enhanced class features
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>aspectj-maven-plugin</artifactId>
+            <version>1.4</version>
+            <configuration>
+               <ajdtBuildDefFile>build-1-5.ajproperties</ajdtBuildDefFile>
+               <source>1.6</source>
+            </configuration>
+            <executions>
+               <execution>
+                  <goals>
+                     <goal>compile</goal>
+                     <goal>test-compile</goal>
+                  </goals>
+               </execution>
+            </executions>
+         </plugin>
+
+      </plugins>
+   </build>
+   -->
+ 
+</project>
