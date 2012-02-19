@@ -4,6 +4,6 @@ import org.apache.http.HttpResponse;
 
 import com.google.gson.JsonObject;
 
-public interface INetworkResponse {
-	public void onNetworkResponseReceived(HttpResponse response);
+public interface IAllListsResponse {
+	public void onAllListsNetworkResponseReceived(HttpResponse response);
 }

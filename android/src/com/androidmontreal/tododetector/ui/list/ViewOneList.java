@@ -38,13 +38,14 @@ import com.androidmontreal.tododetector.json.DataExtractor;
 import com.androidmontreal.tododetector.json.datatype.Elements;
 import com.androidmontreal.tododetector.json.datatype.TodoElement;
 import com.androidmontreal.tododetector.network.NetworkChatter;
-import com.androidmontreal.tododetector.network.interfaces.INetworkResponse;
+import com.androidmontreal.tododetector.network.interfaces.IAllListsResponse;
+import com.androidmontreal.tododetector.network.interfaces.IOneListResponse;
 import com.androidmontreal.tododetector.network.utilities.DataDownload;
 import com.androidmontreal.tododetector.ui.toaster;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-public class ViewOneList extends SherlockActivity implements INetworkResponse {
+public class ViewOneList extends SherlockActivity implements IOneListResponse {
 
 	/*******************************************************
 	 *                                                     *
@@ -172,7 +173,7 @@ public class ViewOneList extends SherlockActivity implements INetworkResponse {
 	private String getValueFromPreference(String pKey) {
 		return PreferenceManager.getDefaultSharedPreferences(this).getString(pKey, "");
 	}
-	public void onNetworkResponseReceived(HttpResponse response) {
+	public void onOneListNetworkResponseReceived(HttpResponse response) {
 		processResponseInThread(response);
 	}
 
