@@ -72,6 +72,9 @@
             android:authorities="com.androidmontreal.tododetector.db.ImageUploadHistory" />
         
         <activity android:theme="@style/Theme.Sherlock" android:name=".TodoDetectorPrefs"/>
+      
+        <activity android:theme="@style/Theme.Sherlock" android:name=".ui.list.ViewLists"/>
+        <activity android:theme="@style/Theme.Sherlock" android:name=".ui.list.ViewOneList"/>
     </application>
 
 </manifest>
