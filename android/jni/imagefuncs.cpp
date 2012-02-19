@@ -55,7 +55,7 @@ vector<vector<Point> > findAllRectangles(Mat& mbgra) {
 	*/
 	vector<vector<Point> > contours;
 	findContours(thresh, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);//###
-	LOGI("Contours: %d", contours.size());
+	//LOGI("Contours: %d", contours.size());
 
 
 	/*
@@ -84,6 +84,7 @@ vector<vector<Point> > findAllRectangles(Mat& mbgra) {
 	
 	checkboxes = filterSquareByArea(checkboxes);
 	
+	checkboxes = filterSquareByCoordinates(checkboxes,mbgra);
 	
     drawContours(mbgra, checkboxes, -1, Scalar(0, 255, 0, 255), 2);
 	
@@ -194,6 +195,46 @@ make: *** [obj/local/armeabi/objs/native_sample/imagefuncs.o] Error 1
  	    }
  	}
  	return selectedCheckboxes;
+ }
+ 
+ 
+  vector<vector<Point> > filterSquareByCoordinates(vector<vector<Point> > checkboxes,  Mat& mbgra)
+ {
+ 	vector<Rect> checkBoxRect;
+ 	//get checkboxes boundingRect
+ 	for (int i = 0; i < checkboxes.size(); i++) {
+ 		vector<Point> checkbox;
+ 	    checkbox = checkboxes[i]; 
+ 	    
+ 	    Rect rect = boundingRect(checkboxes[i]);
+ 	    
+ 	    checkBoxRect.push_back(rect);
+ 	}
+ 	
+ 	sort(checkBoxRect.begin() , checkBoxRect.end(),sortByY);
+ 	Rect rect = checkBoxRect.back();
+ 	double leftY = rect.y;
+ 	LOGI("X : %f  width : %f", leftY, rect.width);
+ 	double minimumYRequired  = leftY - 20 ;
+ 
+ 	vector<vector<Point> > selectedCheckboxes;
+ 	//get left checkboxes
+ 	for (int i = 0; i < checkboxes.size(); i++) {
+ 		vector<Point> checkbox;
+ 	    checkbox = checkboxes[i];
+ 	     
+ 	    Rect checkboxSquare = boundingRect(checkbox);
+ 	    if(checkboxSquare.y > minimumYRequired){
+ 	    	selectedCheckboxes.push_back(checkbox);
+ 	    }
+ 	}
+
+ 	return selectedCheckboxes;
+ }
+ 
+ 
+ bool sortByY(Rect rect1, Rect rect2){
+ 	return (rect2.y-rect1.y > 0);
  }
  
 
