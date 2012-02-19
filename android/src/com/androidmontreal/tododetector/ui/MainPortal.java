@@ -9,22 +9,18 @@ import org.apache.http.HttpResponse;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 import com.androidmontreal.tododetector.json.datatype.Elements;
-//import com.androidmontreal.tododetector.db.ImageUploadHistoryDatabase.ImageUploadHistory;
 import com.androidmontreal.tododetector.json.DataExtractor;
 import com.androidmontreal.tododetector.network.NetworkChatter;
 import com.androidmontreal.tododetector.network.interfaces.INetworkResponse;
 import com.androidmontreal.tododetector.pref.PreferenceConstants;
-//import com.androidmontreal.tododetector.pref.SetPreferencesActivity;
 import com.androidmontreal.tododetector.service.ImageUploadService;
-
-//import com.androidmontreal.tododetector.R;
+import com.androidmontreal.tododetector.ui.list.ViewLists;
 import com.androidmontreal.tododetector.R;
 import com.androidmontreal.tododetector.TodoDetectorPrefs;
-//import com.androidmontreal.tododetector.TodoDetectorUIActivity;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-//import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,16 +30,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-//import android.util.Log;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-//import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 
 import android.view.View;
 import android.widget.Toast;
 
-public class MainPortal extends SherlockActivity implements INetworkResponse  {
+public class MainPortal extends SherlockActivity  {
 
 	/*******************************************************
 	 *                                                     *
@@ -126,6 +120,13 @@ public class MainPortal extends SherlockActivity implements INetworkResponse  {
 
 		}
 	}
+	
+	public void onListProtoClick(View v) {
+		toaster.printMessage(this, "listproto click");
+
+        Intent intent = new Intent(getActivity(), ViewLists.class);
+        startActivity(intent);
+	}
 
 	public void onTodoDetectClick(View v) {
 		//Use this button temporarily to test the OpenCV activity on your machine:
@@ -169,76 +170,11 @@ public class MainPortal extends SherlockActivity implements INetworkResponse  {
 
 	@Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
+
 		saveStateToPreferences();
 		super.onDestroy();
 	}
-
-	/*
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Hold on to this
-		mMenu = menu;
-
-		// Inflate the currently selected menu XML resource.
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.home_menu, menu);
-
-		return true;
-	}
-
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		// For "Title only": Examples of matching an ID with one assigned in
-		// the XML
-		case R.id.open_settings:
-
-			Intent i = new Intent(getBaseContext(),
-					SetPreferencesActivity.class);
-			startActivity(i);
-			return true;
-		case R.id.language_settings:
-			Intent inte = new Intent(getBaseContext(),
-					SetPreferencesActivity.class);
-			startActivityForResult(inte, SWITCH_LANGUAGE);
-			return true;
-		case R.id.result_folder:
-			final boolean fileManagerAvailable = isIntentAvailable(this,
-					"org.openintents.action.PICK_FILE");
-			if (!fileManagerAvailable) {
-				Toast.makeText(
-						getApplicationContext(),
-						"To open and export recorded files or "
-								+ "draft data you can install the OI File Manager, "
-								+ "it allows you to browse your SDCARD directly on your mobile device.",
-								Toast.LENGTH_LONG).show();
-				Intent goToMarket = new Intent(Intent.ACTION_VIEW)
-				.setData(Uri
-						.parse("market://details?id=org.openintents.filemanager"));
-			} else {
-				Intent openResults = new Intent(
-						"org.openintents.action.PICK_FILE");
-				openResults.setData(Uri.parse("file://"
-						+ mOutputDir));
-				startActivity(openResults);
-			}
-
-			break;
-		case R.id.issue_tracker:
-
-			Intent browserIntent = new Intent(
-					Intent.ACTION_VIEW,
-					Uri.parse("https://github.com/borisdb/TodoDetector/issues"));
-			startActivity(browserIntent);
-			return true;
-		default:
-			// Do nothing
-
-			break;
-		}
-
-		return false;
-	}*/
-
+	
 	public static boolean isIntentAvailable(Context context, String action) {
 		final PackageManager packageManager = context.getPackageManager();
 		final Intent intent = new Intent(action);
@@ -247,53 +183,6 @@ public class MainPortal extends SherlockActivity implements INetworkResponse  {
 		return list.size() > 0;
 	}
 	
-	
-	
-	/** IMPORTED CODE **/
-
-	/*******************************************************
-	 *                                                     *
-	 *                   Data Requesting                   *
-	 *                                                     *
-	 *******************************************************/
-	// JSON Data decryption happens in a network-approach-coded library (from google)
-	// basically, we need to process that data in another thread and keep any laggy
-	// stuff from the UI thread.
-	private void requestDataSync() {
-		toaster.printMessage(this, "attempting datasync");
-		String lBaseURL = getValueFromPreference(getString(R.string.strServerBaseURL));
-		if(lBaseURL.equalsIgnoreCase("")){
-			toaster.printMessage(this, "You have not configured the base URL correctly. RTFM or GTFO");
-			return;
-		}
-		NetworkChatter.getRemoteData(lBaseURL, this);
-	}
-	private void processResponseInThread(HttpResponse response){
-
-		final HttpResponse argument = response;
-		
-		new Thread(new Runnable() {
-			public void run() {
-				JsonObject lNetResponse = null;
-				lNetResponse = DataExtractor.getJsonObjectFromEntity(argument.getEntity());
-				Elements returnData = 
-						(new Gson()).fromJson(lNetResponse, Elements.class);
-				mMessageChannel.post(new ServerDataRunnable(returnData));
-			}
-		}).start();
-	}
-	private class ServerDataRunnable implements Runnable {
-		ServerDataRunnable(Elements pObject) {
-			communicatedObject = pObject;
-		}
-		protected Elements communicatedObject = null;
-		public void run() {
-			processServerData(communicatedObject);
-		}
-	}
-	protected void processServerData(Elements communicatedObject) {
-		toaster.printMessage(this, "did it! "+communicatedObject.getListElements().get(0).getImageurl());
-	}
 	
 	/*******************************************************
 	 *                                                     *
@@ -322,9 +211,6 @@ public class MainPortal extends SherlockActivity implements INetworkResponse  {
 		return PreferenceManager.getDefaultSharedPreferences(this).getString(pKey, "");
 	}
 
-	public void onNetworkResponseReceived(HttpResponse response) {
-		processResponseInThread(response);
-	}
 
 
 }

@@ -19,13 +19,14 @@
 		    android:layout_width="fill_parent"
 		    android:layout_height="fill_parent"
 		    android:text="ListPrototype" 
+		    android:onClick="onListProtoClick"
 	    android:layout_weight="0.5"/>
 
 		<Button
 		    android:id="@+id/btnWTF"
 		    android:layout_width="fill_parent"
 		    android:layout_height="fill_parent"
-		    android:text="I don't even know"
+		    android:text="Select List"
 	    android:layout_weight="0.5" />
 
 	</LinearLayout>
