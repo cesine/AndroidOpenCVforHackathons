@@ -82,7 +82,7 @@ public class MainPortal extends SherlockActivity implements INetworkResponse  {
 		prefsMenu.setOnMenuItemClickListener(getPrefsInvokeClickListener());
 		
 
-		return super.onCreateOptionsMenu(menu);
+		 return super.onCreateOptionsMenu(menu);
 	}	
 	
 	@Override
