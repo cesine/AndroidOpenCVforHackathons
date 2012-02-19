@@ -26,6 +26,26 @@ double calcCircularity(vector<Point> contour) {
 }
 
 
+
+
+/* Finds all the rectangles in a region */
+vector<Rect> findAllRectangles(Mat& mbgra) {
+	int width = mbgra.size[1];
+	int height = mbgra.size[0];
+
+	// Separate the image in 3 places ( B, G and R )
+	vector<Mat> rgbPlanes;
+	split(mbgra, rgbPlanes);
+
+	// Get center rectangle
+	Mat yellow = rgbPlanes[1]/2+rgbPlanes[2]/2;
+	Mat thresh;
+	adaptiveThreshold(yellow, thresh, 255, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY_INV, 31, 10);
+	mbgra.setTo(Scalar(0, 0, 255, 255), thresh);//thresh is the mask to draw
+	
+	return vector<Rect>(0);
+}
+
 /* Finds the circle in a region */
 vector<Point> findCircle(Mat& mbgra) {
 	int width = mbgra.size[1];
@@ -228,7 +248,7 @@ Mat findColonies(Mat& mbgr, int& colonies) {
 	dilate(colthresh, colthresh, kernel);
 
 	vector<vector<Point> > contours;
-	findContours(colthresh, contours, CV_RETR_LIST, CV_CHAIN_APPROX_NONE);
+	findContours(colthresh, contours, CV_RETR_LIST, CV_CHAIN_APPROX_NONE);//###
 
 	LOGI("Colony contours: %d", contours.size());
 
