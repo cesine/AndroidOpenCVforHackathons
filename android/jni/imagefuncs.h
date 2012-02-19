@@ -8,6 +8,7 @@ double calcCircularity(std::vector<cv::Point> contour);
 
 std::vector<cv::Point> findCircle(cv::Mat& mbgra);
 std::vector<std::vector<cv::Point> > findAllRectangles(cv::Mat& mbgra);
+std::vector<std::vector<cv::Point> > filterSquareByArea(std::vector<std::vector<cv::Point> > checkboxes);
 
 cv::Mat highpass(cv::Mat& imagef, cv::Mat& mask3C, int blursize);
 
