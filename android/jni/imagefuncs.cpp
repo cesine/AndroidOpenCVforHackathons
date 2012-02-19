@@ -114,14 +114,17 @@ Crop the lines
 */
 vector<vector<Point> > getCropOfToDoLines(vector<vector<Point> > checkboxes, Mat& mbgra)
 {
+
+	//vector<CString> filenames;
+	
 	for (int i = 0; i < checkboxes.size(); i++) {
 		Rect rect = boundingRect(checkboxes[i]);
 		int margin = 5;
 
 		int a = rect.x - margin ;
-		int b = rect.y - margin -80;
+		int b = rect.y - margin -120;
 		int c = rect.width + margin * 2 ;
-		int d = rect.height + margin * 2 +40;
+		int d = rect.height + margin * 2 +80;
 		
 		
 		// Draw rectangle
@@ -131,7 +134,13 @@ vector<vector<Point> > getCropOfToDoLines(vector<vector<Point> > checkboxes, Mat
 						b,
 						c,
 						d), Scalar(200, 200, 0, 255), 2);
-		//Mat imgroi = image(Rect(a, b, c, d));
+		Mat imgroi = image(Rect(a, b, c, d));
+		
+		//CString cs;
+		//cs.Format("/sdcard/Todos/temp%d", i);
+		//LOGI(cs);
+	
+		//imwrite(cs, imgroi);
 		//imwrite("/sdcard/Todos/afilename.png", imgroi);
 		
 
