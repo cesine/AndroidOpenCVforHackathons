@@ -44,7 +44,7 @@ vector<Rect> findAllRectangles(Mat& mbgra) {
 	*/
 	Mat yellow = rgbPlanes[1]/2+rgbPlanes[2]/2; 
 	Mat thresh;
-	adaptiveThreshold(yellow, thresh, 255, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY_INV, 31, 10);
+	adaptiveThreshold(yellow, thresh, 255, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY_INV, 31, 11);
 	//Blackboard dont do an inverse, it will already be dark on light : adaptiveThreshold(yellow, thresh, 255, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY, 31, 10);
 	
 	
@@ -53,7 +53,7 @@ vector<Rect> findAllRectangles(Mat& mbgra) {
 	Take the thresh matrix, and look for contours in it
 	*/
 	vector<vector<Point> > contours;
-	findContours(thresh, contours, CV_RETR_LIST, CV_CHAIN_APPROX_NONE);//###
+	findContours(thresh, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);//###
 	LOGI("Contours: %d", contours.size());
 
 
@@ -64,8 +64,8 @@ vector<Rect> findAllRectangles(Mat& mbgra) {
 	//checkboxes.push_back (contours[0]);
 	
 	for (int i = 0; i < contours.size(); i++) {
-		LOGI("Looking for Checkboxes in : %d", i);
 		Rect rect = boundingRect(contours[i]);
+
 
 		// Make contour convex QUESTION: why?
 		vector<Point> convex;
@@ -74,13 +74,13 @@ vector<Rect> findAllRectangles(Mat& mbgra) {
 		// Check rectangularity
 		double rectangularity = calcCircularity(convex);
 
-		if (rectangularity < 0.5)
+		if (rectangularity < 0.8)
 			continue;
-		
 		checkboxes.push_back (contours[i]);
 	}
-	LOGI("Potential Checkboxes: %d", checkboxes.size());
+	//LOGI("Potential Checkboxes: %d", checkboxes.size());
 	
+    drawContours(mbgra, checkboxes, -1, Scalar(0, 255, 0, 255), 2);
 	
 	
 	mbgra.setTo(Scalar(0, 0, 255, 255), thresh);//thresh is the mask to draw
