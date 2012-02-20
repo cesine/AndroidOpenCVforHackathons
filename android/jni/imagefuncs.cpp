@@ -138,14 +138,14 @@ vector<vector<Point> > getCropOfToDoLines(vector<vector<Point> > checkboxes, Mat
 		
 		
 		//cvLine(mbgra, pt1, pt2, Scalar(0, 200,200, 255), 2)
-		//Mat imgroi = mbgra(Rect(a, b, c, d));
+		Mat imgroi = mbgra(Rect(a, b, c, d));
 		
 		//CString cs;
 		//cs.Format("/sdcard/Todos/temp%d", i);
 		//LOGI(cs);
 	
 		//imwrite(cs, imgroi);
-		//imwrite("/sdcard/Todos/afilename.png", imgroi);
+		imwrite("/sdcard/Todos/afilename.png", imgroi);
 		
 
 	}
