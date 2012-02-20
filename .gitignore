@@ -1,6 +1,5 @@
 # private constants #
 NonPublicConstants.java
-assets/analytics_website_script.html
 
 .externalToolBuilders
 .cproject
@@ -32,10 +31,7 @@ target
 *.dmg
 *.gz
 *.iso
-#*.jar
-!android-gdata-1.30.0.jar
-!bursaq-goto.jar
-!libGoogleAnalytics.jar
+*.jar
 *.rar
 *.tar
 *.zip
@@ -53,8 +49,5 @@ ehthumbs.db
 Icon?
 Thumbs.db
 
-android/.classpath
-android/lint.xml
+lint.xml
 
-android/.project
-android/.cproject
