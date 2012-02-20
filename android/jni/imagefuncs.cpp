@@ -31,6 +31,8 @@ double calcCircularity(vector<Point> contour) {
 
 /* Finds all the rectangles in a region */
 vector<vector<Point> > findAllRectangles(Mat& mbgra) {
+	LOGI("Finding rectangles...");
+
 	int width = mbgra.size[1];
 	int height = mbgra.size[0];
 
@@ -55,18 +57,15 @@ vector<vector<Point> > findAllRectangles(Mat& mbgra) {
 	*/
 	vector<vector<Point> > contours;
 	findContours(thresh, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);//###
-	//LOGI("Contours: %d", contours.size());
+	LOGI("Contours: %d", contours.size());
 
 
 	/*
 	For each contour, find out how rectangle it is (between .5 and 1 is a pretty good rectangle candidate)
 	*/
 	vector<vector<Point> > checkboxes;
-	//checkboxes.push_back (contours[0]);
-	
 	for (int i = 0; i < contours.size(); i++) {
 		Rect rect = boundingRect(contours[i]);
-
 
 		// Make contour convex QUESTION: why?
 		vector<Point> convex;
@@ -79,7 +78,7 @@ vector<vector<Point> > findAllRectangles(Mat& mbgra) {
 			continue;
 		checkboxes.push_back (convex);
 	}
-	//LOGI("Potential Checkboxes: %d", checkboxes.size());
+	LOGI("Potential Checkboxes: %d", checkboxes.size());
 	
 	
 	checkboxes = filterSquareByArea(checkboxes);
@@ -135,6 +134,15 @@ vector<vector<Point> > getCropOfToDoLines(vector<vector<Point> > checkboxes, Mat
 						b,
 						c,
 						d), Scalar(200, 200, 0, 255), 2);
+		
+		
+		// Draw cross-hairs
+		int width = mbgra.size[0];
+		int height = mbgra.size[1];
+		line(mbgra, Point(width * 0.5, height * 0.4),
+				Point(width * 0.5, height * 0.6), Scalar(0, 0, 0, 255), 2);
+		line(mbgra, Point(width * 0.4, height * 0.5),
+				Point(width * 0.6, height * 0.5), Scalar(0, 0, 0, 255), 2);
 		
 		
 		//cvLine(mbgra, pt1, pt2, Scalar(0, 200,200, 255), 2)
