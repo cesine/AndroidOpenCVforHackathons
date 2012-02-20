@@ -3,6 +3,7 @@ NonPublicConstants.java
 assets/analytics_website_script.html
 
 .externalToolBuilders
+.cproject
 .project
 .settings
 .classpath
