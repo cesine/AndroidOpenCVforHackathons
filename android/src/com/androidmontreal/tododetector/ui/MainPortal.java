@@ -87,6 +87,10 @@ public class MainPortal extends SherlockActivity  {
 		mOutputDir = prefs.getString(
 				PreferenceConstants.OUTPUT_IMAGE_DIRECTORY,
 				"/sdcard/ToDos/");
+		
+		new File(mOutputDir).mkdirs();
+		
+		
 		mSampleId = prefs.getString(
 				PreferenceConstants.PREFERENCE_WATER_SAMPLE_ID, "unkown");
 		mExperimenterCode = prefs.getString(
