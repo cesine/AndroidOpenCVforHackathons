@@ -144,6 +144,9 @@ vector<vector<Point> > getCropOfToDoLines(vector<vector<Point> > checkboxes, Mat
 				, Point(rect.x, height )
 				, Scalar(200, 200, 0, 255)
 				, 2);
+		/*
+		draw a line below check box if you wish
+		*/
 		line(mbgra
 				, Point(rect.x + rect.width, 0)
 				, Point(rect.x + rect.width, height)
