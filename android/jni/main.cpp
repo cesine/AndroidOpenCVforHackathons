@@ -17,15 +17,26 @@
 #include <string.h>
 #include <jni.h>
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <android/log.h>
+
+#define  LOG_TAG    "IntheCPP"
+#define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__)
+#define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__)
+
 /* This is a trivial JNI example where we use a native method
  * to return a new VM String. See the corresponding Java source
  * file located at:
  *
  *   apps/samples/hello-jni/project/src/com/example/HelloJni/HelloJni.java
  */
-jstring
-Java_com_androidmontreal_opencv_AndroidOpenCVforHackathonsActivity_stringFromJNI( JNIEnv* env,
-                                                  jobject thiz )
-{
-    return (*env)->NewStringUTF(env, "Hello from JNI !");
-}
+extern "C" {
+     JNIEXPORT jstring JNICALL Java_com_androidmontreal_opencv_AndroidOpenCVforHackathonsActivity_stringFromJNI(JNIEnv * env, jobject thiz);
+ };
+
+ JNIEXPORT jstring JNICALL Java_com_androidmontreal_opencv_AndroidOpenCVforHackathonsActivity_stringFromJNI(JNIEnv * env, jobject thiz)
+ {
+	 LOGI("In the function call for stringFromJNI which is in the AndroidOpenCVforHackathonsActivity class in the com.androidmontreal.opencv package ");
+     return env->NewStringUTF("Hello From CPP");
+ }

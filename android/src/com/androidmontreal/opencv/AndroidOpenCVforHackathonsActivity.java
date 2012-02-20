@@ -62,6 +62,6 @@ public class AndroidOpenCVforHackathonsActivity extends Activity
      * installation time by the package manager.
      */
     static {
-        System.loadLibrary("hello-jni");
+        System.loadLibrary("opencv_sample");
     }
 }
