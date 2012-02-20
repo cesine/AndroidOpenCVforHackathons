@@ -128,32 +128,38 @@ vector<vector<Point> > getCropOfToDoLines(vector<vector<Point> > checkboxes, Mat
 		
 		
 		// Draw rectangle
-		rectangle(
-				mbgra,
-				Rect(a, 
-						b,
-						c,
-						d), Scalar(200, 200, 0, 255), 2);
+		//rectangle(
+		//		mbgra,
+		//		Rect(a, 
+		//				b,
+		//				c,
+		//				d), Scalar(200, 200, 0, 255), 2);
 		
 		
 		// Draw cross-hairs
 		int width = mbgra.size[0];
 		int height = mbgra.size[1];
-		line(mbgra, Point(width * 0.5, height * 0.4),
-				Point(width * 0.5, height * 0.6), Scalar(0, 0, 0, 255), 2);
-		line(mbgra, Point(width * 0.4, height * 0.5),
-				Point(width * 0.6, height * 0.5), Scalar(0, 0, 0, 255), 2);
+		line(mbgra
+				, Point(rect.x, 0)
+				, Point(rect.x, height )
+				, Scalar(200, 200, 0, 255)
+				, 2);
+		line(mbgra
+				, Point(rect.x + rect.width, 0)
+				, Point(rect.x + rect.width, height)
+				, Scalar(200, 0, 0, 255)
+				, 2);
 		
 		
 		//cvLine(mbgra, pt1, pt2, Scalar(0, 200,200, 255), 2)
-		Mat imgroi = mbgra(Rect(a, b, c, d));
+		//Mat imgroi = mbgra(Rect(a, b, c, d));
 		
 		//CString cs;
 		//cs.Format("/sdcard/Todos/temp%d", i);
 		//LOGI(cs);
 	
 		//imwrite(cs, imgroi);
-		imwrite("/sdcard/Todos/afilename.png", imgroi);
+		//imwrite("/sdcard/Todos/afilename.png", imgroi);
 		
 
 	}
