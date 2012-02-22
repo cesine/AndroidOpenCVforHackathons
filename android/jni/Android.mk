@@ -16,8 +16,11 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
+OPENCV_MK_PATH:=$(OPENCV_PACKAGE_DIR)/OpenCV-2.3.1/share/OpenCV/OpenCV.mk
+include $(OPENCV_MK_PATH)
+	
 LOCAL_MODULE    := opencv_sample
-LOCAL_SRC_FILES := main.cpp
-LOCAL_LDLIBS    := -llog
+LOCAL_SRC_FILES := main.cpp image_processing.cpp
+LOCAL_LDLIBS +=  -llog -ldl
 
 include $(BUILD_SHARED_LIBRARY)

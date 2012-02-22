@@ -14,16 +14,21 @@
  * limitations under the License.
  *
  */
-#include <string.h>
+#include <stdarg.h>
 #include <jni.h>
+#include <opencv2/core/core.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/features2d/features2d.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <vector>
 
-#include <stdio.h>
-#include <stdlib.h>
+
 #include <android/log.h>
+#include "image_processing.h"
 
-#define  LOG_TAG    "IntheCPP"
-#define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__)
-#define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__)
+
+using namespace cv;
+using namespace std;
 
 /* This is a trivial JNI example where we use a native method
  * to return a new VM String. See the corresponding Java source
@@ -37,6 +42,35 @@ extern "C" {
 
  JNIEXPORT jstring JNICALL Java_com_androidmontreal_opencv_AndroidOpenCVforHackathonsActivity_stringFromJNI(JNIEnv * env, jobject thiz)
  {
-	 LOGI("In the function call for stringFromJNI which is in the AndroidOpenCVforHackathonsActivity class in the com.androidmontreal.opencv package ");
-     return env->NewStringUTF("Hello From CPP");
+	 return env->NewStringUTF("Hello From CPP");
  }
+ extern "C" {
+      JNIEXPORT jstring JNICALL Java_com_androidmontreal_opencv_OpenCVPreview_processimage(JNIEnv* env, jobject thiz, jint width, jint height, jbyteArray yuv, jintArray bgra);
+  };
+ JNIEXPORT jstring JNICALL Java_com_androidmontreal_opencv_OpenCVPreview_processimage(JNIEnv* env, jobject thiz, jint width, jint height, jbyteArray yuv, jintArray bgra)
+  {
+
+	 // Get input and output arrays
+	jbyte* _yuv = env->GetByteArrayElements(yuv, 0);
+	jint* _bgra = env->GetIntArrayElements(bgra, 0);
+
+	Mat myuv(height + height / 2, width, CV_8UC1, (unsigned char *) _yuv);
+	Mat mbgra(height, width, CV_8UC4, (unsigned char *) _bgra);
+
+	// Please pay attention to BGRA byte order
+	// ARGB stored in java as int array becomes BGRA at native level
+	cvtColor(myuv, mbgra, CV_YUV420sp2BGR, 4);
+
+
+	int imageYwidth = mbgra.size[1];
+	int imageXheight = mbgra.size[0];
+
+	 vector<vector<Point> > items;
+	 string resultsIfAny = colorSomeStuff(mbgra);
+
+	 env->ReleaseIntArrayElements(bgra, _bgra, 0);
+	 env->ReleaseByteArrayElements(yuv, _yuv, 0);
+
+	 const char* resultCstring = resultsIfAny.c_str();
+	 return env->NewStringUTF(resultCstring);
+  }
