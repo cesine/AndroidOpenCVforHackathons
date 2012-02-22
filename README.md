@@ -1,12 +1,14 @@
 Download before the Hackathon
 ====================
-Since the hackathon usually has overloaded wifi and so the download might be super slow
+Since the hackathon usually has overloaded wifi you should try to download these files if you know you will be hacking on OpenCV...
 
 Step 0:
 ---------
 Set up Android SDK for your Eclipse, if you dont already have this set up then this project may be a bit over your head...
 The complete instructions are all on this page: 
 http://developer.android.com/sdk/eclipse-adt.html#installing
+Be sure to complete the sdk set up before going to the hackathon because you could need to download around 1 gig (which is pretty much impossible at most hackathons)... WATCHOUT: dont check all the SDKs, just get  a couple like maybe SDK 8, 11, 14 so that you have a few to choose from and your team can compile to the same sdk
+
 
 Step A:
 ---------
@@ -56,6 +58,11 @@ Step 5:
 --------
 Clean and Run
 You should see the Camera view with red lines around contrasts, green circles around circles, and cyan lines under circles larger than 10px wide.
+
+Step 6:
+--------
+Figure out how the heck it works, by quickly looking at the diffs in the issues of Milestone UpAndRunning:
+https://github.com/AndroidImageProcessing/AndroidOpenCVforHackathons/issues?sort=created&direction=desc&state=closed&page=1&milestone=1
 
 
 Full Instructions: From Zero to Eclipse to Android to Android NDK to OpenCV
