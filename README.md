@@ -30,17 +30,17 @@ Day of The Hackathon: Setup this sample project
 =========================
 Step 1:
 ---------
-git clone git://github.com/AndroidImageProcessing/AndroidOpenCVforHackathons.git
+git clone https://github.com/AndroidImageProcessing/AndroidOpenCVforHackathons.git 
 
 
 Step 2:
 ---------
 Put the sample .project and .externalLaunchers into the android root 
- $ cd Downloads/
- $ unzip AndroidImageProcessing-AndroidOpenCVforHackathons-androidndk-0-gff595f8
- $ cd AndroidImageProcessing-AndroidOpenCVforHackathons-androidndk-0-gff595f8/android
- $ cp ../eclipseconfig/.projectsample .project
- $ cp ../eclipseconfig/.externalToolBuilderssample .externalToolBuilders
+    $ cd Downloads/
+    $ unzip AndroidImageProcessing-AndroidOpenCVforHackathons-androidndk-0-gff595f8
+    $ cd AndroidImageProcessing-AndroidOpenCVforHackathons-androidndk-0-gff595f8/android
+    $ cp ../eclipseconfig/.projectsample .project
+    $ cp ../eclipseconfig/.externalToolBuilderssample .externalToolBuilders
 
 Step 3:
 ---------
