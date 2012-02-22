@@ -36,12 +36,13 @@ git clone https://github.com/AndroidImageProcessing/AndroidOpenCVforHackathons.g
 Step 2:
 ---------
 Put the sample .project and .externalLaunchers into the android root 
+ <pre>
  *   $ cd Downloads/
  *   $ unzip AndroidImageProcessing-AndroidOpenCVforHackathons-androidndk-0-gff595f8
  *   $ cd AndroidImageProcessing-AndroidOpenCVforHackathons-androidndk-0-gff595f8/android
  *   $ cp ../eclipseconfig/.projectsample .project
  *   $ cp ../eclipseconfig/.externalToolBuilderssample .externalToolBuilders
-
+ </pre>
 Step 3:
 ---------
 Now you can Import the project 
