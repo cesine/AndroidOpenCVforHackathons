@@ -1,3 +1,65 @@
+Download before the Hackathon
+====================
+Since the hackathon usually has overloaded wifi and so the download might be super slow
+
+Step 0:
+---------
+Set up Android SDK for your Eclipse, if you dont already have this set up then this project may be a bit over your head...
+The complete instructions are all on this page: 
+http://developer.android.com/sdk/eclipse-adt.html#installing
+
+Step A:
+---------
+Install the C++ Development Toolkit in your Eclipse
+
+Step B: 
+---------
+Download the Android NDK
+http://developer.android.com/sdk/ndk/index.html
+
+Step C:
+---------
+Download the OpenCV
+http://sourceforge.net/projects/opencvlibrary/files/opencv-android/2.3.1/OpenCV-2.3.1-android-bin.tar.bz2/download
+
+
+
+Setup this sample project
+=========================
+Step 1:
+---------
+git clone git://github.com/AndroidImageProcessing/AndroidOpenCVforHackathons.git
+
+
+Step 2:
+---------
+Put the sample .project and .externalLaunchers into the android root 
+ $ cd Downloads/
+ $ unzip AndroidImageProcessing-AndroidOpenCVforHackathons-androidndk-0-gff595f8
+ $ cd AndroidImageProcessing-AndroidOpenCVforHackathons-androidndk-0-gff595f8/android
+ $ cp ../eclipseconfig/.projectsample .project
+ $ cp ../eclipseconfig/.externalToolBuilderssample .externalToolBuilders
+
+Step 3:
+---------
+Now you can Import the project 
+Import>>General >>Existing project into workspace>>Browse to AndroidImageProcessing-AndroidOpenCVforHackathons-androidndk-0-gff595f8/android
+
+
+Step 4:
+--------
+Edit the builder graphically
+Right click on the project AndroidOpenCVforHackathons> Properties>Builders>AndroidOpenCVforHackathonsBuilder>Edit>Main> ..change the Location to where your NDK is..
+Environment> ..change the Value to where your OpenCV-2.3.1-bin is..
+
+Step 5:
+--------
+Clean and Run
+You should see the Camera view with red lines around contrasts, green circles around circles, and cyan lines under circles larger than 10px wide.
+
+
+Full Instructions: From Zero to Eclipse to Android to Android NDK to OpenCV
+==================
 Assumptions:  
 - We are going to install the NDK under BASE_DIR; something like: BASE_DIR=/home/amir/Android  
 mkdir -p ${BASE_DIR}  
