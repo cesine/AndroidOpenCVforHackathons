@@ -7,6 +7,7 @@ Step 0:
 Set up Android SDK for your Eclipse, if you dont already have this set up then this project may be a bit over your head...
 The complete instructions are all on this page: 
 http://developer.android.com/sdk/eclipse-adt.html#installing
+
 Be sure to complete the sdk set up before going to the hackathon because you could need to download around 1 gig (which is pretty much impossible at most hackathons)... WATCHOUT: dont check all the SDKs, just get  a couple like maybe SDK 8, 11, 14 so that you have a few to choose from and your team can compile to the same sdk
 
 
@@ -17,11 +18,13 @@ Install the C++ Development Toolkit in your Eclipse
 Step B: 
 ---------
 Download the Android NDK
+
 http://developer.android.com/sdk/ndk/index.html
 
 Step C:
 ---------
 Download the OpenCV
+
 http://sourceforge.net/projects/opencvlibrary/files/opencv-android/2.3.1/OpenCV-2.3.1-android-bin.tar.bz2/download
 
 
@@ -45,23 +48,27 @@ Put the sample .project and .externalLaunchers into the android root
 Step 3:
 ---------
 Now you can Import the project 
+
 Import>>General >>Existing project into workspace>>Browse to AndroidOpenCVforHackathons/android
 
 
 Step 4:
 --------
 Edit the builder graphically
+
 Right click on the project AndroidOpenCVforHackathons> Properties>Builders>AndroidOpenCVforHackathonsBuilder>Edit>Main> ..change the Location to where your NDK is..
 Environment> ..change the Value to where your OpenCV-2.3.1-bin is..
 
 Step 5:
 --------
 Clean and Run
+
 You should see the Camera view with red lines around contrasts, green circles around circles, and cyan lines under circles larger than 10px wide.
 
 Step 6:
 --------
 Figure out how the heck it works, by quickly looking at the diffs in the issues of Milestone UpAndRunning:
+
 https://github.com/AndroidImageProcessing/AndroidOpenCVforHackathons/issues?sort=created&direction=desc&state=closed&page=1&milestone=1
 
 
