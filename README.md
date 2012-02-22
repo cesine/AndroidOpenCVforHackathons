@@ -26,7 +26,7 @@ http://sourceforge.net/projects/opencvlibrary/files/opencv-android/2.3.1/OpenCV-
 
 
 
-Setup this sample project
+Day of The Hackathon: Setup this sample project
 =========================
 Step 1:
 ---------
