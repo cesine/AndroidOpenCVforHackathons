@@ -68,10 +68,18 @@ public class AndroidOpenCVforHackathonsActivity extends Activity implements
 				// Loop every 1 sec
 				getOpenCVResult(textView1);
 			}
-			String response = "Hi from the AsyncThread";
-			response = ((AndroidOpenCVforHackathonsApp) getApplication())
+			String opencvResult = "Hi from the AsyncThread";
+			opencvResult = ((AndroidOpenCVforHackathonsApp) getApplication())
 					.getLastMessage();
-			return response;
+			/*
+			 * 
+			 * Do something with the opencvResult here, like motion tracking, or making a decision...
+			 * 
+			 * 
+			 */
+			
+			
+			return opencvResult;
 		}
 
 		@Override
