@@ -15,7 +15,6 @@
  */
 package com.androidmontreal.opencv;
 
-
 import android.app.Activity;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
@@ -23,6 +22,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 
@@ -30,6 +30,10 @@ public class AndroidOpenCVforHackathonsActivity extends Activity implements Pict
 {
 	private static final String TAG = "OpenCVforHackathons";
 	
+	 // OpenCV results view
+    private TextView textView1;
+    private boolean stopUpdatingInBackground = false;
+
 	
     /** Called when the activity is first created. */
     @Override
@@ -43,10 +47,41 @@ public class AndroidOpenCVforHackathonsActivity extends Activity implements Pict
          * function.
          */
         setContentView(R.layout.main);
-        TextView  tv = (TextView) findViewById(R.id.textview1);
-        tv.setText( stringFromJNI() );
+        textView1 = (TextView) findViewById(R.id.textview1);
+        textView1.setText( stringFromJNI() );
         
     }
+    public void getOpenCVResult(View view){
+    	UpdateFromOpenCVTask getOpenCVResults = new UpdateFromOpenCVTask();
+        getOpenCVResults.execute(new String[] { "in execute" });
+    
+    }
+    private class UpdateFromOpenCVTask extends AsyncTask<String, Void, String> {
+		@Override
+		protected String doInBackground(String... urls) {
+			Log.d(TAG,"Pausing 1 sec before calling again.");
+			try {
+				new Thread().sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			if(!(stopUpdatingInBackground)){
+				// Loop every 1 sec
+				getOpenCVResult(textView1);
+			}
+			String response = "Hi from the AsyncThread";
+			response = ((AndroidOpenCVforHackathonsApp) getApplication()).getLastMessage(); 
+			return response;
+		}
+		@Override
+		protected void onPostExecute(String result) {
+			/*
+			 * The result comes from the above doInBackground method, 
+			 * but this runs on the UI thread and so we can set a field in the UI.
+			 */
+			textView1.setText(result);
+		}
+	}
 
     @Override
 	protected void onDestroy() {
@@ -63,13 +98,16 @@ public class AndroidOpenCVforHackathonsActivity extends Activity implements Pict
 	@Override
 	protected void onPause() {
 		Log.d(TAG, "====onPause====");
-		super.onPause();
+		stopUpdatingInBackground = true;
+	    super.onPause();
 	}
 
 	@Override
 	protected void onResume() {
 		Log.d(TAG, "==onResume==");
 		super.onResume();
+		stopUpdatingInBackground = false;
+        getOpenCVResult(textView1);
 	}
 
 	@Override
