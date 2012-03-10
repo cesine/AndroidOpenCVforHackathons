@@ -27,7 +27,7 @@ http://developer.android.com/sdk/ndk/index.html
 
 Step C:
 ---------
-Download the OpenCV
+Download the OpenCV bin for Android
 
 http://sourceforge.net/projects/opencvlibrary/files/opencv-android/2.3.1/OpenCV-2.3.1-android-bin.tar.bz2/download
 
@@ -39,8 +39,9 @@ Step 1:
 ---------
 Fork this repository into your GitHub account, if you're familiar with GitHub. 
 OR
-git clone https://github.com/AndroidImageProcessing/AndroidOpenCVforHackathons.git 
-
+<code>
+$ git clone https://github.com/AndroidImageProcessing/AndroidOpenCVforHackathons.git 
+</code>
 Step 2:
 ---------
 Now you can Import the project 
@@ -56,9 +57,9 @@ Step 4:
 --------- 
 In the Builder created in Step 3, add an Environment Variable on the 3rd tab.
 Sample var:
-OPENCV_PACKAGE_DIR
+<pre>OPENCV_PACKAGE_DIR</pre>
 Sample value:
-/Users/yourname/opencv/OpenCV-2.3.1-android-bin
+<pre>/Users/yourname/opencv/OpenCV-2.3.1-android-bin</pre>
 
 Step 5:
 --------
@@ -68,7 +69,7 @@ You should see the Camera view with red lines around contrasts, green circles ar
 
 Step 6:
 --------
-Figure out how the heck it works, by quickly looking at the diffs in the issues of Milestone UpAndRunning:
+Figure out how it works, by quickly looking at the diffs in the issues of Milestone UpAndRunning:
 
 https://github.com/AndroidImageProcessing/AndroidOpenCVforHackathons/issues?sort=created&direction=desc&state=closed&milestone=1
 
