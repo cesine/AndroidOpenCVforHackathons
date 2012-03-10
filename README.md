@@ -2,14 +2,18 @@ Download before the Hackathon
 ====================
 Since the hackathon usually has overloaded wifi you should try to download these files if you know you will be hacking on OpenCV...
 
-Step 0:
+Step 0 get SDK 8:
 ---------
 Set up Android SDK for your Eclipse, if you dont already have this set up then this project may be a bit over your head...
 The complete instructions are all on this page: 
 http://developer.android.com/sdk/eclipse-adt.html#installing
 
-Be sure to complete the sdk set up before going to the hackathon because you could need to download around 1 gig (which is pretty much impossible at most hackathons)... WATCHOUT: dont check all the SDKs, just get  a couple like maybe SDK 8, 11, 14 so that you have a few to choose from and your team can compile to the same sdk
+Be sure to complete the sdk set up before going to the hackathon because you could need to download around 1 gig (which is pretty much impossible at most hackathons)... 
 
+<pre>WATCHOUT: dont download all the SDKs, just get  a couple like maybe SDK 8, 11, 14 so that you have a few to choose from and your team can compile to the same sdk. 
+
+WATCHOUT: If you have IceCream Sandwich there is a high chance that OpenCV will give you a black screen. The OpenCV team is working on getting it running for Android 4.0, you'll have to use another team member's Android.
+</pre>
 
 Step A:
 ---------
@@ -33,31 +37,28 @@ Day of The Hackathon: Setup this sample project
 =========================
 Step 1:
 ---------
+Fork this repository into your GitHub account, if you're familiar with GitHub. 
+OR
 git clone https://github.com/AndroidImageProcessing/AndroidOpenCVforHackathons.git 
 
-
 Step 2:
----------
-Put the sample .project and .externalLaunchers into the android root 
-<pre>
- $ cd AndroidOpenCVforHackathons/android
- $ cp ../eclipseconfig/.projectsample .project
- $ cp ../eclipseconfig/.externalToolBuilderssample .externalToolBuilders
-</pre>
-
-Step 3:
 ---------
 Now you can Import the project 
 
 Import>>General >>Existing project into workspace>>Browse to AndroidOpenCVforHackathons/android
 
+Step 3:
+---------
+Create an external builder following these instructions in the OpenCV tutorial
+http://opencv.itseez.com/doc/tutorials/introduction/android_binary_package/android_binary_package_using_with_NDK.html#theory-how-to-build-android-application-having-c-native-part-from-eclipse
 
 Step 4:
---------
-Edit the builder graphically
-
-Right click on the project AndroidOpenCVforHackathons> Properties>Builders>AndroidOpenCVforHackathonsBuilder>Edit>Main> ..change the Location to where your NDK is..
-Environment> ..change the Value to where your OpenCV-2.3.1-bin is..
+--------- 
+In the Builder created in Step 3, add an Environment Variable on the 3rd tab.
+Sample var:
+OPENCV_PACKAGE_DIR
+Sample value:
+/Users/yourname/opencv/OpenCV-2.3.1-android-bin
 
 Step 5:
 --------
@@ -69,7 +70,37 @@ Step 6:
 --------
 Figure out how the heck it works, by quickly looking at the diffs in the issues of Milestone UpAndRunning:
 
-https://github.com/AndroidImageProcessing/AndroidOpenCVforHackathons/issues?sort=created&direction=desc&state=closed&page=1&milestone=1
+https://github.com/AndroidImageProcessing/AndroidOpenCVforHackathons/issues?sort=created&direction=desc&state=closed&milestone=1
+
+
+Step 7: 
+-------
+Modify the code to suit your needs, send us pull requests if you want to help.
+After a bit of hacking you can check out the code in the issues of Milestone Debugging OpenCV in Android C++ 
+
+https://github.com/AndroidImageProcessing/AndroidOpenCVforHackathons/issues?milestone=2&state=closed
+
+
+Step 8:
+-------
+If you need some more Android code, there are samples to adapt to suit your needs (Bluetooth, services, Rest etc). Just create a new Android Project and click the checkbox from Sample code, you will get a list to choose from.
+
+
+Step 9:
+------
+Spread the joy... 
+
+
+
+Windows :
+---------
+You might need to install drivers for the Android device. 
+
+
+Visual Studio Users:
+----------
+You can compile and run Android from the command line, or just download Eclipse (its about 130MB and works similarily to Visual Studio). There's garenteed to be Eclipse users at the hackathon, don't be shy, ask around to help yourself get set up. After you're set up you only need three things: clean, debug, run.
+
 
 
 Full Instructions: From Zero to Eclipse to Android to Android NDK to OpenCV
