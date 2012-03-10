@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.widget.Toast;
 
 class OpenCVPreview extends CameraPreviewViewBase {
 	Context mContext;
@@ -22,6 +21,7 @@ class OpenCVPreview extends CameraPreviewViewBase {
 
 		String resultsForThisFrame = processimage(getFrameWidth(), getFrameHeight(), data, rgba);
 		Log.d(TAG, "Got a string back from the cpp: "+resultsForThisFrame);
+		((AndroidOpenCVforHackathonsApp) mContext.getApplicationContext()).setLastMessage(resultsForThisFrame); 
 		
 		
 		Bitmap bmp = Bitmap.createBitmap(getFrameWidth(), getFrameHeight(),
