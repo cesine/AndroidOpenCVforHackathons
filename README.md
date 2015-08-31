@@ -1,8 +1,12 @@
+Update August 2015:
+
+[Eclipse support has ended](http://android-developers.blogspot.ca/2015/06/an-update-on-eclipse-android-developer.html).  Support for the NDK is [in preview in Android Studio 1.3](http://tools.android.com/tech-docs/android-ndk-preview) which means soon you will be able to use Android Studio for OpenCV. 
+
 Download before the Hackathon
 ====================
 Since the hackathon usually has overloaded wifi you should try to download these files if you know you will be hacking on OpenCV...
 
-Step 0 get SDK 8:
+Step 0 get SDKs:
 ---------
 Set up Android SDK for your Eclipse, if you dont already have this set up then this project may be a bit over your head...
 The complete instructions are all on this page: 
@@ -10,9 +14,9 @@ http://developer.android.com/sdk/eclipse-adt.html#installing
 
 Be sure to complete the sdk set up before going to the hackathon because you could need to download around 1 gig (which is pretty much impossible at most hackathons)... 
 
-<pre>WATCHOUT: dont download all the SDKs, just get  a couple like maybe SDK 8, 11, 14 so that you have a few to choose from and your team can compile to the same sdk. 
+<pre>WATCHOUT: dont download all the SDKs, just get the latest.
 
-WATCHOUT: If you have IceCream Sandwich there is a high chance that OpenCV will give you a black screen. The OpenCV team is working on getting it running for Android 4.0, you'll have to use another team member's Android.
+WATCHOUT: If you have IceCream Sandwich 4.0 there was a problem that OpenCV would give you a black screen. 
 </pre>
 
 Step A:
